@@ -43,7 +43,7 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
           routeBasePath: '/',
           path: '../docs',
-          editUrl: 'https://github.com/xirtus/voyuerr/edit/develop/docs/',
+          editUrl: 'https://github.com/xirtus/voyuerr/edit/main/docs/',
           docItemComponent: '@theme/ApiItem',
           async sidebarItemsGenerator({
             defaultSidebarItemsGenerator,
@@ -81,7 +81,7 @@ const config: Config = {
               groupPathsBy: 'tag',
             },
             downloadUrl:
-              'https://raw.githubusercontent.com/xirtus/voyuerr/refs/heads/develop/voyeurr-api.yml',
+              'https://raw.githubusercontent.com/xirtus/voyuerr/refs/heads/main/voyeurr-api.yml',
             hideSendButton: true,
           } satisfies OpenApiPlugin.Options,
         },

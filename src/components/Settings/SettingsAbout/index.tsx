@@ -30,7 +30,7 @@ const messages = defineMessages('components.Settings.SettingsAbout', {
   outofdate: 'Out of Date',
   uptodate: 'Up to Date',
   runningDevelop:
-    'You are running the <code>develop</code> branch of Voyeurr, which is only recommended for those contributing to development or assisting with bleeding-edge testing.',
+    'You are running the <co...main</code> branch of Voyeurr, which is only recommended for those contributing ...mainment or assisting with bleeding-edge testing.',
 });
 
 const SettingsAbout = () => {
@@ -59,7 +59,7 @@ const SettingsAbout = () => {
       />
       <div className="section">
         <List title={intl.formatMessage(messages.aboutvoyeurr)}>
-          {data.version.startsWith('develop-') && (
+          {data.version.startsWit...main-') && (
             <Alert
               title={intl.formatMessage(messages.runningDevelop, {
                 code: (msg: React.ReactNode) => (
@@ -73,14 +73,14 @@ const SettingsAbout = () => {
             className="flex flex-row items-center truncate"
           >
             <code className="truncate">
-              {data.version.replace('develop-', '')}
+              {data.version.replac...main-', '')}
             </code>
             {status?.commitTag !== 'local' &&
               (status?.updateAvailable ? (
                 <a
                   href={
-                    data.version.startsWith('develop-')
-                      ? `https://github.com/xirtus/voyuerr/compare/${status.commitTag}...develop`
+                    data.version.startsWit...main-')
+                      ? `https://github.com/xirtus/voyuerr/compare/${status.commitTag}...main`
                       : 'https://github.com/xirtus/voyuerr/releases'
                   }
                   target="_blank"
@@ -96,8 +96,8 @@ const SettingsAbout = () => {
               ) : (
                 <a
                   href={
-                    data.version.startsWith('develop-')
-                      ? 'https://github.com/xirtus/voyuerr/commits/develop'
+                    data.version.startsWit...main-')
+                      ? 'https://github.com/xirtus/voyuerr/commi...main'
                       : 'https://github.com/xirtus/voyuerr/releases'
                   }
                   target="_blank"

@@ -103,7 +103,7 @@ class GithubAPI extends ExternalAPI {
 
   public async getVoyeurrCommits({
     take = 20,
-    branch = 'develop',
+    branch = 'main',
   }: {
     take?: number;
     branch?: string;
