@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="public/logo_full.svg" alt="Voyeurr" width="420" />
+  <img src="public/logo_full2.svg" alt="Voyeurr" width="420" />
   <h3>Self-Hosted Adult Media Requests — Browse, Discover, Automate</h3>
   <p>
     <a href="https://github.com/xirtus/voyuerr/blob/main/LICENSE"><img src="https://img.shields.io/github/license/xirtus/voyuerr" alt="License MIT" /></a>
