@@ -18,26 +18,11 @@
           stroke="#ff3366" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.5"/>
   </g>
 
-  <!-- "voyuerr" wordmark — white text -->
-  <g transform="translate(170, 0)">
-    <!-- v -->
-    <path d="M0 96L18 40L36 96L48 40L48 96H60V28H42L30 72L18 28H0V96Z" fill="white"/>
-    <!-- o -->
-    <path d="M72 62C72 80.5 87.5 96 106 96C124.5 96 140 80.5 140 62C140 43.5 124.5 28 106 28C87.5 28 72 43.5 72 62ZM88 62C88 49.5 96 40 106 40C116 40 124 49.5 124 62C124 74.5 116 84 106 84C96 84 88 74.5 88 62Z" fill="white"/>
-    <!-- y -->
-    <path d="M148 28L164 62L180 28H196L172 80V96H156V80L132 28H148Z" fill="white"/>
-    <!-- u -->
-    <path d="M200 28V72C200 84 212 96 226 96C240 96 252 84 252 72V28H240V72C240 80 234 84 226 84C218 84 212 80 212 72V28H200Z" fill="white"/>
-    <!-- e -->
-    <path d="M260 62C260 80.5 274 96 290 96C306 96 320 84 320 68H308C304 78 296 84 288 84C278 84 272 74.5 272 62C272 49.5 278 40 288 40C296 40 304 46 308 56H320C320 40 306 28 290 28C274 28 260 43.5 260 62Z" fill="white"/>
-    <!-- r -->
-    <path d="M326 96V28H344C356 28 364 36 364 48C364 60 356 66 344 66H338V96H326ZM338 56H344C350 56 354 52 354 48C354 44 350 40 344 40H338V56Z" fill="white"/>
-    <!-- r -->
-    <path d="M370 96V28H388C400 28 408 36 408 48C408 60 400 66 388 66H382V96H370ZM382 56H388C394 56 398 52 398 48C398 44 394 40 388 40H382V56Z" fill="white"/>
-  </g>
+  <!-- "voyuerr" wordmark -->
+  <text x="168" y="72" font-family="'Inter',system-ui,-apple-system,sans-serif" font-weight="800" font-size="56" letter-spacing="-0.5" fill="white">voyuerr</text>
 
-  <!-- Subtle tagline accent line -->
-  <line x1="170" y1="108" x2="380" y2="108" stroke="#ff3366" stroke-width="1" opacity="0.4"/>
+  <!-- Tagline -->
+  <text x="172" y="100" font-family="'Inter',system-ui,-apple-system,sans-serif" font-weight="400" font-size="14" letter-spacing="3" fill="#ff3366" opacity="0.7">ADULT MEDIA REQUESTS</text>
 
   <defs>
     <!-- Red/crimson gradient for the eye -->
