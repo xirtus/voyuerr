@@ -1,0 +1,223 @@
+# ═══════════════════════════════════════════════════════════
+# Voyeurr Full Stack — Docker Compose
+# 
+# Complete adult media automation stack:
+# voyeurr + whisparr + jackett/prowlarr + qBittorrent + jellyfin + stash
+#
+# Phase 7 — Documentation, Testing & Deployment
+# ═══════════════════════════════════════════════════════════
+
+services:
+  voyeurr:
+    image: ghcr.io/xirtus/voyuerr:latest
+    container_name: voyeurr
+    restart: unless-stopped
+    ports:
+      - "5055:5055"
+    environment:
+      - NODE_ENV=production
+      - CONFIG_DIRECTORY=/app/config
+      # Phase 6: Encryption key for sensitive DB fields
+      - VOYEURR_ENCRYPTION_KEY=${VOYEURR_ENCRYPTION_KEY:-}
+      # Phase 6: Proxy/VPN configuration
+      - HTTP_PROXY=${HTTP_PROXY:-}
+      - HTTPS_PROXY=${HTTPS_PROXY:-}
+      - SOCKS5_PROXY=${SOCKS5_PROXY:-}
+    volumes:
+      - voyeurr_config:/app/config
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - voyeurr_net
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: voyeurr-postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=voyeurr
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-voyeurr}
+      - POSTGRES_DB=voyeurr
+    volumes:
+      - voyeurr_db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U voyeurr"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - voyeurr_net
+
+  whisparr:
+    image: hotio/whisparr:latest
+    container_name: whisparr
+    restart: unless-stopped
+    ports:
+      - "6969:6969"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=UTC
+    volumes:
+      - whisparr_config:/config
+      - ./media/downloads:/downloads
+      - ./media/library:/library
+    networks:
+      - voyeurr_net
+
+  jackett:
+    image: linuxserver/jackett:latest
+    container_name: jackett
+    restart: unless-stopped
+    ports:
+      - "9117:9117"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=UTC
+    volumes:
+      - jackett_config:/config
+    networks:
+      - voyeurr_net
+
+  # Alternative: Prowlarr (recommended over Jackett for better *arr integration)
+  prowlarr:
+    image: linuxserver/prowlarr:latest
+    container_name: prowlarr
+    restart: unless-stopped
+    ports:
+      - "9696:9696"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=UTC
+    volumes:
+      - prowlarr_config:/config
+    networks:
+      - voyeurr_net
+
+  qbittorrent:
+    image: linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+      - "6881:6881"
+      - "6881:6881/udp"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=UTC
+      - WEBUI_PORT=8080
+    volumes:
+      - qbit_config:/config
+      - ./media/downloads:/downloads
+    networks:
+      - voyeurr_net
+
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    container_name: jellyfin
+    restart: unless-stopped
+    ports:
+      - "8096:8096"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=UTC
+    volumes:
+      - jellyfin_config:/config
+      - ./media/library:/media
+    networks:
+      - voyeurr_net
+
+  stash:
+    image: stashapp/stash:latest
+    container_name: stash
+    restart: unless-stopped
+    ports:
+      - "9999:9999"
+    environment:
+      - STASH_STASH=/root/.stash
+      - PUID=1000
+      - PGID=1000
+      - TZ=UTC
+    volumes:
+      - stash_config:/root/.stash
+      - ./media/library:/media:ro
+    networks:
+      - voyeurr_net
+
+  # ═══════════════════════════════════════════════════════════
+  # VPN tunnel (recommended for privacy)
+  # Routes all download traffic through a VPN provider.
+  # Uncomment and configure with your VPN credentials.
+  # Supports: Mullvad, ProtonVPN, NordVPN, PIA, etc.
+  # ═══════════════════════════════════════════════════════════
+  # gluetun:
+  #   image: qmcgaw/gluetun:latest
+  #   container_name: gluetun
+  #   restart: unless-stopped
+  #   cap_add:
+  #     - NET_ADMIN
+  #   environment:
+  #     - VPN_SERVICE_PROVIDER=${VPN_SERVICE_PROVIDER:-mullvad}
+  #     - VPN_TYPE=wireguard
+  #     - WIREGUARD_PRIVATE_KEY=${WIREGUARD_PRIVATE_KEY}
+  #     - WIREGUARD_ADDRESSES=${WIREGUARD_ADDRESSES}
+  #     - SERVER_COUNTRIES=${SERVER_COUNTRIES:-Switzerland}
+  #   ports:
+  #     - "6881:6881"       # qBittorrent
+  #     - "6881:6881/udp"
+  #     - "8080:8080"       # qBittorrent web UI (via VPN)
+  #   networks:
+  #     - voyeurr_net
+
+  # ═══════════════════════════════════════════════════════════
+  # Reverse proxy (recommended for HTTPS and domain routing)
+  # Provides SSL termination via Let's Encrypt and routes
+  # traffic to the correct internal service by subdomain/path.
+  # ═══════════════════════════════════════════════════════════
+  # traefik:
+  #   image: traefik:v3
+  #   container_name: traefik
+  #   restart: unless-stopped
+  #   command:
+  #     - "--api.insecure=false"
+  #     - "--providers.docker=true"
+  #     - "--providers.docker.exposedbydefault=false"
+  #     - "--entrypoints.web.address=:80"
+  #     - "--entrypoints.websecure.address=:443"
+  #     - "--certificatesresolvers.letsencrypt.acme.tlschallenge=true"
+  #     - "--certificatesresolvers.letsencrypt.acme.email=${ACME_EMAIL:-admin@example.com}"
+  #     - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock:ro
+  #     - traefik_letsencrypt:/letsencrypt
+  #   networks:
+  #     - voyeurr_net
+  #   labels:
+  #     - "traefik.enable=true"
+  #     - "traefik.http.routers.voyeurr.rule=Host(`voyeurr.example.com`)"
+  #     - "traefik.http.routers.voyeurr.entrypoints=websecure"
+  #     - "traefik.http.routers.voyeurr.tls.certresolver=letsencrypt"
+  #     - "traefik.http.services.voyeurr.loadbalancer.server.port=5055"
+
+volumes:
+  voyeurr_config:
+  voyeurr_db:
+  whisparr_config:
+  jackett_config:
+  prowlarr_config:
+  qbit_config:
+  jellyfin_config:
+  stash_config:
+  # traefik_letsencrypt:
+
+networks:
+  voyeurr_net:
+    driver: bridge

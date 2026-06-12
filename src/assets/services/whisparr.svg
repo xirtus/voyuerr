@@ -1,0 +1,21 @@
+<svg version="1.1" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
+  <!-- Peach/🍑 shaped Whisparr logo -->
+  <defs>
+    <linearGradient id="peachGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff6b6b;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#ffa07a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffd700;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Peach body -->
+  <ellipse cx="500" cy="480" rx="340" ry="370" fill="url(#peachGrad)" />
+  <!-- Peach cleft -->
+  <path d="M500 120 Q500 300 500 780" stroke="#cc4444" stroke-width="8" fill="none" opacity="0.5"/>
+  <!-- Leaf -->
+  <path d="M500 140 Q420 60 340 100 Q420 140 500 140" fill="#4CAF50" />
+  <path d="M500 140 Q580 60 660 100 Q580 140 500 140" fill="#4CAF50" />
+  <!-- Stem -->
+  <rect x="492" y="100" width="16" height="60" rx="8" fill="#795548" />
+  <!-- Text -->
+  <text x="500" y="550" text-anchor="middle" font-family="Arial, sans-serif" font-size="100" font-weight="bold" fill="white" opacity="0.9">W</text>
+</svg>

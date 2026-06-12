@@ -1,0 +1,16 @@
+node_modules/
+.next/
+dist/
+config/
+*.db
+*.db-journal
+.env
+.env.local
+.env.*.local
+*.log
+.DS_Store
+.helm-packages/
+cypress/screenshots/
+cypress/videos/
+*.tsbuildinfo
+coverage/

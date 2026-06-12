@@ -1,0 +1,17 @@
+<svg version="1.1" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="jackettGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#9b59b6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3498db;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Magnet shape -->
+  <rect x="280" y="120" width="440" height="600" rx="60" fill="url(#jackettGrad)" />
+  <!-- U cutout -->
+  <rect x="420" y="460" width="160" height="220" rx="20" fill="white" />
+  <!-- Metal tips -->
+  <rect x="320" y="720" width="120" height="120" rx="20" fill="#e74c3c" />
+  <rect x="560" y="720" width="120" height="120" rx="20" fill="#2c3e50" />
+  <!-- Text -->
+  <text x="500" y="380" text-anchor="middle" font-family="Arial, sans-serif" font-size="140" font-weight="bold" fill="white" opacity="0.9">J</text>
+</svg>

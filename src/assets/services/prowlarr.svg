@@ -1,0 +1,27 @@
+<svg version="1.1" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="prowlarrGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e67e22;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e74c3c;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Prowlarr: cat/prowling animal silhouette inside circle -->
+  <circle cx="500" cy="500" r="440" fill="url(#prowlarrGrad)" />
+  <!-- Eye -->
+  <ellipse cx="480" cy="360" rx="60" ry="80" fill="#2c3e50" />
+  <ellipse cx="480" cy="350" rx="30" ry="40" fill="#f1c40f" />
+  <ellipse cx="480" cy="345" rx="12" ry="20" fill="#2c3e50" />
+  <!-- Second eye -->
+  <ellipse cx="620" cy="360" rx="60" ry="80" fill="#2c3e50" />
+  <ellipse cx="620" cy="350" rx="30" ry="40" fill="#f1c40f" />
+  <ellipse cx="620" cy="345" rx="12" ry="20" fill="#2c3e50" />
+  <!-- Nose -->
+  <ellipse cx="550" cy="500" rx="30" ry="20" fill="#2c3e50" />
+  <!-- Whiskers -->
+  <line x1="350" y1="480" x2="510" y2="500" stroke="#2c3e50" stroke-width="8" />
+  <line x1="350" y1="520" x2="510" y2="510" stroke="#2c3e50" stroke-width="8" />
+  <line x1="590" y1="500" x2="750" y2="480" stroke="#2c3e50" stroke-width="8" />
+  <line x1="590" y1="510" x2="750" y2="520" stroke="#2c3e50" stroke-width="8" />
+  <!-- Text -->
+  <text x="500" y="750" text-anchor="middle" font-family="Arial, sans-serif" font-size="120" font-weight="bold" fill="white" opacity="0.9">P</text>
+</svg>

@@ -1,0 +1,29 @@
+fallenbagel:
+  name: Fallenbagel
+  page: true
+  title: Developer & Maintainer of Voyeurr
+  description: Core Maintainer & Developer of Voyeurr | Full-Stack Software Engineer | MSc Software Engineering Student.
+  url: https://github.com/fallenbagel
+  image_url: https://github.com/fallenbagel.png
+  email: hello@fallenbagel.com
+  socials:
+    github: fallenbagel
+
+gauthier-th:
+  name: Gauthier
+  page: true
+  title: Developer & Maintainer of Voyeurr
+  description: Core Maintainer & Developer of Voyeurr | PhD Student in AI at ICB, Dijon
+  url: https://gauthierth.fr
+  image_url: https://github.com/gauthier-th.png
+  email: mail@gauthierth.fr
+  socials:
+    github: gauthier-th
+
+xirtus:
+  name: Voyeurr Team
+  title: The team behind Voyeurr, formerly known as the Voyeurr and Voyeurr teams.
+  url: https://voyeurr.dev
+  image_url: https://github.com/xirtus.png
+  socials:
+    github: xirtus

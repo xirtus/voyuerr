@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voyeurr · Conversion Plan</title>
+<link rel="stylesheet" href="css/voyeurr.css">
+</head>
+<body>
+<main class="page">
+
+  <nav class="site-nav">
+    <a href="index.html" class="site-nav__logo">🔞 Voyeurr</a>
+    <div class="site-nav__links">
+      <a href="index.html" class="active">Plan</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#phases">Phases</a>
+      <a href="#integrations">Integrations</a>
+      <a href="#metadata">Metadata</a>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- HERO                                                -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <div class="hero">
+    <p class="eyebrow">Voyeurr · Adult Media Request Platform · Plan Created 2026‑06‑12</p>
+    <h1>Conversion Plan</h1>
+    <p class="subtitle">
+      Complete fork-and-conversion roadmap: transforming the Seerr/Jellyseerr codebase into
+      <strong>Voyeurr</strong> — the one-stop request &amp; discovery platform for adult content.
+      Porn, Hentai, JAV, Uncensored Leaks, VR, Amateur — unified under a single interface
+      with Whisparr automation, Jackett indexing, and multi-metadata aggregation.
+    </p>
+    <div class="badge-row">
+      <a href="#phase-0" class="badge pct">Phase 0: Rename — 100% Complete ✅</a>
+      <a href="#phase-1" class="badge pct">Phase 1: Metadata — 100% Complete ✅</a>
+      <a href="#phase-2" class="badge pct">Phase 2: Whisparr — 100% Complete ✅</a>
+      <a href="#phase-3" class="badge pct">Phase 3: Indexers — 100% Complete ✅</a>
+      <a href="#phase-4" class="badge pct">Phase 4: UI — 100% Complete ✅</a>
+      <a href="#phase-5" class="badge pct">Phase 5: Media Server — 100% Complete ✅</a>
+      <a href="#phase-6" class="badge pct">Phase 6: Privacy — 100% Complete ✅</a>
+      <a href="#phase-7" class="badge pct">Phase 7: Deploy — 100% Complete ✅</a>
+      <a href="#phase-8" class="badge pct">Phase 8: Metadata — 100% Complete ✅</a>
+      <a href="#phase-9" class="badge pct">Phase 9: Search — 100% Complete ✅</a>
+      <a href="#phase-10" class="badge pct">Phase 10: UX — 100% Complete ✅</a>
+      <a href="#phase-11" class="badge pct">Phase 11: Automation — 100% Complete ✅</a>
+      <a href="#phase-12" class="badge pct">Phase 12: Social — 100% Complete ✅</a>
+      <a href="#phase-13" class="badge pct">Phase 13: Analytics — 100% Complete ✅</a>
+      <a href="#phase-14" class="badge pct">Phase 14: Production — 100% Complete ✅</a>
+      <a href="#phase-15" class="badge pct">Phase 15: API — 100% Complete ✅</a>
+      <a href="#phase-16" class="badge pct">Phase 16: Notifications — 100% Complete ✅</a>
+      <a href="#phase-17" class="badge" style="background:var(--rule);border-color:var(--rule);color:var(--faint)">Phase 17: Mobile — Pending</a>
+      <a href="#phase-18" class="badge" style="background:var(--rule);border-color:var(--rule);color:var(--faint)">Phase 18: AI/ML — Pending</a>
+      <a href="#phase-19" class="badge pct">Phase 19: Discovery — 100% Complete ✅</a>
+      <a href="#phase-20" class="badge" style="background:var(--rule);border-color:var(--rule);color:var(--faint)">Phase 20: Downloads — Pending</a>
+      <a href="#phase-21" class="badge" style="background:var(--rule);border-color:var(--rule);color:var(--faint)">Phase 21: Processing — Pending</a>
+      <a href="#phase-22" class="badge" style="background:var(--rule);border-color:var(--rule);color:var(--faint)">Phase 22: Federation — Pending</a>
+      <a href="#phase-23" class="badge pct">Phase 23: Access — 100% Complete ✅</a>
+      <a href="#phase-24" class="badge pct">Phase 24: Integrity — 100% Complete ✅</a>
+      <a href="#phase-25" class="badge" style="background:var(--rule);border-color:var(--rule);color:var(--faint)">Phase 25: Plugins — Pending</a>
+      <a href="#phase-26" class="badge" style="background:var(--rule);border-color:var(--rule);color:var(--faint)">Phase 26: i18n — Pending</a>
+      <a href="#phase-27" class="badge pct">Phase 27: Perf — 80% Complete ✅</a>
+      <a href="#phase-28" class="badge" style="background:var(--rule);border-color:var(--rule);color:var(--faint)">Phase 28: Compliance — Pending</a>
+      <a href="#integrations" class="badge" style="background:var(--pink-bg);border-color:color-mix(in srgb,var(--pink) 30%,var(--rule) 70%);color:var(--pink)">12 External Services</a>
+      <a href="#content-categories" class="badge" style="background:var(--teal-bg);border-color:color-mix(in srgb,var(--teal) 30%,var(--rule) 70%);color:var(--teal)">10 Content Categories</a>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- KEY STATS                                           -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <div class="stat-grid">
+    <a href="#phase-0" class="stat" style="text-decoration:none">
+      <div class="stat__num" style="color:var(--green)">120</div>
+      <div class="stat__label">Files Renamed</div>
+    </a>
+    <a href="#phases" class="stat" style="text-decoration:none">
+      <div class="stat__num">29</div>
+      <div class="stat__label">Phases Total</div>
+    </a>
+    <a href="#integrations" class="stat" style="text-decoration:none">
+      <div class="stat__num" style="color:var(--blue)">12</div>
+      <div class="stat__label">External Services</div>
+    </a>
+    <a href="#content-model" class="stat" style="text-decoration:none">
+      <div class="stat__num" style="color:var(--pink)">10</div>
+      <div class="stat__label">Content Categories</div>
+    </a>
+    <a href="#metadata" class="stat" style="text-decoration:none">
+      <div class="stat__num" style="color:var(--teal)">6</div>
+      <div class="stat__label">Metadata Providers</div>
+    </a>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- SYSTEM ARCHITECTURE MAP                              -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <section id="architecture">
+    <div class="section-header">
+      <span class="section-header__icon">🗺️</span>
+      <h2>System Architecture</h2>
+      <span class="section-header__badge">Topology</span>
+    </div>
+
+    <div class="arch-map">
+      <div class="arch-map__title">Voyeurr Service Topology — Complete Adult Media Stack</div>
+      <div class="arch-map__subtitle">Next.js frontend → Express API → Whisparr automation → Jackett/Prowlarr indexing → qBittorrent/SABnzbd → Jellyfin/Plex/Stash</div>
+
+      <div class="map-layers">
+        <!-- Layer: User -->
+        <div class="map-layer">
+          <div class="map-layer__label">👤 User Layer</div>
+          <div class="map-nodes">
+            <div class="map-node">
+              <span class="map-node__icon">🖥️</span>
+              <div class="map-node__name">Browser / PWA</div>
+              <div class="map-node__detail">Next.js · React 19</div>
+            </div>
+            <div class="map-node">
+              <span class="map-node__icon">📱</span>
+              <div class="map-node__name">Mobile PWA</div>
+              <div class="map-node__detail">Offline · Push · Install</div>
+            </div>
+            <div class="map-node">
+              <span class="map-node__icon">🔐</span>
+              <div class="map-node__name">Auth Gateway</div>
+              <div class="map-node__detail">Plex/Emby/Jellyfin SSO</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Layer: Application -->
+        <div class="map-layer">
+          <div class="map-layer__label">⚙️ Voyeurr Core</div>
+          <div class="map-nodes">
+            <div class="map-node">
+              <span class="map-node__icon">🎬</span>
+              <div class="map-node__name">Discover Engine</div>
+              <div class="map-node__detail">Trending · Studios · Channels</div>
+            </div>
+            <div class="map-node">
+              <span class="map-node__icon">📝</span>
+              <div class="map-node__name">Request Manager</div>
+              <div class="map-node__detail">Auto-approve · 4K · Multi-part</div>
+            </div>
+            <div class="map-node">
+              <span class="map-node__icon">🔍</span>
+              <div class="map-node__name">Metadata Aggregator</div>
+              <div class="map-node__detail">Multi-source · Performer DB</div>
+            </div>
+            <div class="map-node">
+              <span class="map-node__icon">📊</span>
+              <div class="map-node__name">Notification Hub</div>
+              <div class="map-node__detail">Discord · Email · Webhook</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Layer: Automation -->
+        <div class="map-layer">
+          <div class="map-layer__label">🤖 Automation Layer</div>
+          <div class="map-nodes">
+            <div class="map-node">
+              <span class="map-node__icon">🍑</span>
+              <div class="map-node__name">Whisparr</div>
+              <div class="map-node__detail">Adult content · *arr API</div>
+            </div>
+            <div class="map-node">
+              <span class="map-node__icon">🧲</span>
+              <div class="map-node__name">Jackett / Prowlarr</div>
+              <div class="map-node__detail">Torznab · Newznab · 180+ indexers</div>
+            </div>
+            <div class="map-node">
+              <span class="map-node__icon">⬇️</span>
+              <div class="map-node__name">Download Client</div>
+              <div class="map-node__detail">qBittorrent · SABnzbd</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Layer: Media -->
+        <div class="map-layer">
+          <div class="map-layer__label">🎞️ Media Layer</div>
+          <div class="map-nodes">
+            <div class="map-node">
+              <span class="map-node__icon">📺</span>
+              <div class="map-node__name">Jellyfin / Plex</div>
+              <div class="map-node__detail">Library · Transcoding</div>
+            </div>
+            <div class="map-node">
+              <span class="map-node__icon">🏷️</span>
+              <div class="map-node__name">Stash</div>
+              <div class="map-node__detail">Adult organizer · Performer DB</div>
+            </div>
+            <div class="map-node">
+              <span class="map-node__icon">📼</span>
+              <div class="map-node__name">Media Storage</div>
+              <div class="map-node__detail">NAS · Cloud · Local</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- REQUEST PIPELINE                                     -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <section id="pipeline">
+    <div class="section-header">
+      <span class="section-header__icon">🔗</span>
+      <h2>Content Request Pipeline</h2>
+      <span class="section-header__badge">Data Flow</span>
+    </div>
+
+    <div class="arch-map">
+      <div class="arch-map__title">End-to-End: Discovery → Request → Download → Watch</div>
+      <div class="arch-map__subtitle">The same seamless flow that Seerr provides, but for adult content — from performer discovery to playback</div>
+
+      <div class="pipeline-viz">
+        <div class="pipeline-flow">
+          <div class="pipeline-step">
+            <div class="pipeline-icon">🔍</div>
+            <div class="pipeline-label">Discover</div>
+            <div class="pipeline-sublabel">Browse · Trending</div>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-step">
+            <div class="pipeline-icon">📋</div>
+            <div class="pipeline-label">Request</div>
+            <div class="pipeline-sublabel">1-click · Auto-approve</div>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-step">
+            <div class="pipeline-icon">🍑</div>
+            <div class="pipeline-label">Whisparr</div>
+            <div class="pipeline-sublabel">Monitor · Search · Grab</div>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-step">
+            <div class="pipeline-icon">🧲</div>
+            <div class="pipeline-label">Indexers</div>
+            <div class="pipeline-sublabel">Jackett · 180+ trackers</div>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-step">
+            <div class="pipeline-icon">⬇️</div>
+            <div class="pipeline-label">Download</div>
+            <div class="pipeline-sublabel">qBit · SABnzbd</div>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-step">
+            <div class="pipeline-icon">🏷️</div>
+            <div class="pipeline-label">Organize</div>
+            <div class="pipeline-sublabel">Rename · Metadata · Move</div>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-step">
+            <div class="pipeline-icon">🎬</div>
+            <div class="pipeline-label">Watch</div>
+            <div class="pipeline-sublabel">Jellyfin · Plex · Stash</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- READINESS RINGS                                      -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <section id="readiness">
+    <div class="section-header">
+      <span class="section-header__icon">💍</span>
+      <h2>Conversion Readiness</h2>
+      <span class="section-header__badge">Progress</span>
+    </div>
+
+    <div class="progress-ring-grid">
+      <!-- Ring 1: Rename -->
+      <div class="progress-ring-card">
+        <div class="progress-ring">
+          <svg viewBox="0 0 100 100">
+            <circle class="progress-ring__bg" cx="50" cy="50" r="42"/>
+            <circle class="progress-ring__fill progress-ring__fill--green" cx="50" cy="50" r="42"
+                    stroke-dasharray="264" stroke-dashoffset="0"/>
+          </svg>
+          <div class="progress-ring__center">
+            <span class="progress-ring__value">100%</span>
+          </div>
+        </div>
+        <div class="progress-ring-card__title">Rename &amp; Rebrand</div>
+        <div class="progress-ring-card__desc">120 files · Zero remnants</div>
+      </div>
+
+      <!-- Ring 2: Metadata -->
+      <div class="progress-ring-card">
+        <div class="progress-ring">
+          <svg viewBox="0 0 100 100">
+            <circle class="progress-ring__bg" cx="50" cy="50" r="42"/>
+            <circle class="progress-ring__fill progress-ring__fill--green" cx="50" cy="50" r="42"
+                    stroke-dasharray="264" stroke-dashoffset="0"/>
+          </svg>
+          <div class="progress-ring__center">
+            <span class="progress-ring__value">100%</span>
+          </div>
+        </div>
+        <div class="progress-ring-card__title">Content Model</div>
+        <div class="progress-ring-card__desc">6 entities · 2 migrations · API spec</div>
+      </div>
+
+      <!-- Ring 3: Whisparr -->
+      <div class="progress-ring-card">
+        <div class="progress-ring">
+          <svg viewBox="0 0 100 100">
+            <circle class="progress-ring__bg" cx="50" cy="50" r="42"/>
+            <circle class="progress-ring__fill progress-ring__fill--green" cx="50" cy="50" r="42"
+                    stroke-dasharray="264" stroke-dashoffset="0"/>
+          </svg>
+          <div class="progress-ring__center">
+            <span class="progress-ring__value">100%</span>
+          </div>
+        </div>
+        <div class="progress-ring-card__title">Whisparr Integration</div>
+        <div class="progress-ring-card__desc">API client · scanner · settings UI · Eros</div>
+      </div>
+
+      <!-- Ring 4: Indexers -->
+      <div class="progress-ring-card">
+        <div class="progress-ring">
+          <svg viewBox="0 0 100 100">
+            <circle class="progress-ring__bg" cx="50" cy="50" r="42"/>
+            <circle class="progress-ring__fill progress-ring__fill--green" cx="50" cy="50" r="42"
+                    stroke-dasharray="264" stroke-dashoffset="0"/>
+          </svg>
+          <div class="progress-ring__center">
+            <span class="progress-ring__value">100%</span>
+          </div>
+        </div>
+        <div class="progress-ring-card__title">Indexer Layer</div>
+        <div class="progress-ring-card__desc">Jackett · Prowlarr · Torznab · Newznab</div>
+      </div>
+
+      <!-- Ring 5: Content Model -->
+      <div class="progress-ring-card">
+        <div class="progress-ring">
+          <svg viewBox="0 0 100 100">
+            <circle class="progress-ring__bg" cx="50" cy="50" r="42"/>
+            <circle class="progress-ring__fill progress-ring__fill--green" cx="50" cy="50" r="42"
+                    stroke-dasharray="264" stroke-dashoffset="0"/>
+          </svg>
+          <div class="progress-ring__center">
+            <span class="progress-ring__value">100%</span>
+          </div>
+        </div>
+        <div class="progress-ring-card__title">Content Model</div>
+        <div class="progress-ring-card__desc">Entities + Migrations done</div>
+      </div>
+
+      <!-- Ring 6: Overall -->
+      <div class="progress-ring-card">
+        <div class="progress-ring">
+          <svg viewBox="0 0 100 100">
+            <circle class="progress-ring__bg" cx="50" cy="50" r="42"/>
+            <circle class="progress-ring__fill progress-ring__fill--amber" cx="50" cy="50" r="42"
+                    stroke-dasharray="264" stroke-dashoffset="55"/>
+          </svg>
+          <div class="progress-ring__center">
+            <span class="progress-ring__value">79%</span>
+          </div>
+        </div>
+        <div class="progress-ring-card__title">Overall Conversion</div>
+        <div class="progress-ring-card__desc">Phases 0–16, 19, 23–24, 27 complete</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- PHASE PLAN                                           -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <section id="phases">
+    <p class="section-label">Implementation</p>
+    <h2>Phase-by-Phase Conversion Plan</h2>
+    <p class="section-note">
+      Eight phases from rename to production deployment. Each phase is independently
+      testable and includes a rollback plan. Estimated total: <strong>12–16 weeks</strong>
+      for a single developer, <strong>6–8 weeks</strong> with a team of two.
+    </p>
+
+    <div class="phase-grid">
+
+      <!-- Phase 0 -->
+      <div id="phase-0" class="phase-card">
+        <div class="phase-card__header">
+          <span class="phase-card__icon">🏗️</span>
+          <div class="phase-card__title">Phase 0 — Foundation: Rename &amp; Rebrand</div>
+          <span class="phase-card__status phase-card__status--done">Complete ✅</span>
+        </div>
+        <div class="phase-card__desc">
+          Full project rename from Seerr/Jellyseerr/Overseerr → Voyeurr. Every file, string,
+          URL, API path, Docker tag, chart reference, and locale file updated.
+        </div>
+        <div class="phase-card__tasks">
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Rename 5 files/directories (API spec, chart, component, images, migration)</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Replace 120 files: Seerr → Voyeurr, seerr → voyeurr, all case variants</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Update npm namespace: @seerr-team → @voyeurr-team</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Update 37 i18n locale files including inflected forms</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Update Docker image: ghcr.io/voyeurr-team/voyeurr</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Update chart, docs config, cypress tests, PWA manifest</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Zero remaining Seerr/Overseerr/Jellyseerr references verified</div>
+        </div>
+      </div>
+
+      <!-- Phase 1 -->
+      <div id="phase-1" class="phase-card">
+        <div class="phase-card__header">
+          <span class="phase-card__icon">🗂️</span>
+          <div class="phase-card__title">Phase 1 — Content Model: Scenes, Performers, Studios</div>
+          <span class="phase-card__status phase-card__status--done">Complete ✅</span>
+        </div>
+        <div class="phase-card__desc">
+          Redesign the core data model from Movie/TV to the adult content paradigm. Adult content
+          is fundamentally different: it's organized by <strong>scenes</strong> (not movies),
+          <strong>performers</strong> (not actors in the traditional sense), <strong>studios/channels</strong>
+          (not networks), and <strong>series/collections</strong> (not TV seasons). The database schema,
+          API entities, and TypeORM migrations must be rewritten.
+        </div>
+        <div class="phase-card__tasks">
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Design new Entity schema: Scene, Performer, Studio, Channel, Collection, Release</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Create TypeORM entities replacing Movie/TV with Scene/Collection models</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Write database migration: preserve users/settings, transform media tables (SQLite + PostgreSQL)</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Define content categories: Scene, Movie, Channel Release, JAV, Hentai, VR, Amateur, Gay, Trans, UHD</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Implement Performer ↔ Scene many-to-many with roles (starring, featuring, directing)</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Studio/Channel entity with logo, parent studio, network relationships</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Series entity: scene grouping (e.g., "Tushy Raw V1–V99") with ordering — renamed from Collection to avoid confusion with UserCollection</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> scene_categories join table: normalized category support replacing comma-separated strings for efficient faceted filtering</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Update API spec (voyeurr-api.yml) with new models and endpoints</div>
+        </div>
+      </div>
+
+      <!-- Phase 2 -->
+      <div id="phase-2" class="phase-card">
+        <div class="phase-card__header">
+          <span class="phase-card__icon">🍑</span>
+          <div class="phase-card__title">Phase 2 — Whisparr Integration (The *arr Stack)</div>
+          <span class="phase-card__status phase-card__status--done">Complete ✅</span>
+        </div>
+        <div class="phase-card__desc">
+          Whisparr is the adult-content fork of Sonarr/Radarr in the *arr ecosystem. It handles
+          monitoring, searching, grabbing, and renaming adult content. Voyeurr must talk to Whisparr
+          the same way Seerr talks to Radarr/Sonarr — via the unified *arr API.
+          <br><br>
+          <strong>Eros branch research complete:</strong> Whisparr's Eros branch (1,881 commits ahead of v2)
+          adds native Scene/Performer/Studio endpoints — <code>GET /lookup/scene</code>,
+          <code>POST /performer</code>, <code>POST /studio</code>. stasharr (111★ reference userscript)
+          confirms the *arr API pattern works identically with <code>foreignId</code> linking.
+        </div>
+        <div class="phase-card__tasks">
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Study Whisparr API (v2 + Eros branch) + stasharr reference implementation</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Create WhisparrAPI client class (mirrors RadarrAPI/SonarrAPI + Eros endpoints)</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Implement quality profile sync, root folder discovery, tag management (via ServarrBase)</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Build scene-to-Whisparr-movie mapping via foreignId (tpdb:/stash: prefix)</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Create WhisparrScanner for availability sync (foreignId-based matching)</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Implement request flow: Voyeurr request → Whisparr add + search → monitor status</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Add Whisparr settings UI (server list, profiles, root folders, tags)</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Handle multi-scene collections: batch-add to Whisparr with collection tags</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Support 4K/VR quality profiles with separate Whisparr instances</div>
+        </div>
+      </div>
+
+      <!-- Phase 3 -->
+      <div id="phase-3" class="phase-card">
+        <div class="phase-card__header">
+          <span class="phase-card__icon">🧲</span>
+          <div class="phase-card__title">Phase 3 — Indexer Layer: Jackett &amp; Prowlarr</div>
+          <span class="phase-card__status phase-card__status--done">Complete ✅</span>
+        </div>
+        <div class="phase-card__desc">
+          Adult content is primarily distributed via specialized trackers and Usenet indexers.
+          Jackett (and its successor Prowlarr) provide a unified Torznab/Newznab API across
+          180+ trackers. Voyeurr now has a full management interface for indexers — configuring which
+          trackers to use, priority ordering, and adult-content-specific filtering.
+          <br><br>
+          <strong>Key adult trackers:</strong> AdultEmpire, Pornbay, Empornium, PornoLab, HappyFappy,
+          xxxClub, YourExotic, PornLeech — plus general trackers with adult categories.
+          <strong>Usenet:</strong> Slug, Dog, Geek, Finder (all have adult categories).
+        </div>
+        <div class="phase-card__tasks">
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Research Jackett API (Torznab + Newznab) and Prowlarr API</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Create JackettAPI / ProwlarrAPI client classes</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Build indexer management UI: add/remove/configure/test indexers</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Implement category mapping: adult categories (5000+ range in Newznab)</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Adult content filter presets: XXX, Porn, Hentai, JAV sub-categories</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Indexer health monitoring: uptime, response time, result counts</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Priority-based indexer selection (fastest first, fallback chain)</div>
+        </div>
+      </div>
+
+      <!-- Phase 4 -->
+      <div id="phase-4" class="phase-card">
+        <div class="phase-card__header">
+          <span class="phase-card__icon">🎨</span>
+          <div class="phase-card__title">Phase 4 — UI/UX: Adult-First Interface</div>
+          <span class="phase-card__status phase-card__status--done">Complete ✅</span>
+        </div>
+        <div class="phase-card__desc">
+          Redesign the entire frontend for adult content browsing. This is not just a reskin — the
+          information architecture shifts from Movie/TV to Scene/Performer/Studio. New views for
+          performer profiles with filmographies, studio pages, and category-based discovery.
+        </div>
+        <div class="phase-card__tasks">
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Replace TMDB-based MovieDetails/TvDetails with AdultMetadata-based SceneDetails</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Build Performer profile page: bio, stats, filmography, gallery (SFW thumbnails)</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Build Studio/Channel page: logo, description, all releases, parent network</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Discovery sliders: Trending Now, New Releases, Popular Performers, Top Studios</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Category filter sidebar: type, genre, studio, performer, VR, 4K, year</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> NSFW-aware image loading: blur/spoiler mode, per-user preference</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Custom theme: dark, adult-aesthetic color palette (#ff3366 accent, #1a0a1e base)</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> PWA: installable, offline-capable, private (no screenshot in app switcher on mobile)</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Request UI: 1-click request with quality/format selector (1080p/4K/VR/60fps)</div>
+        </div>
+      </div>
+
+      <!-- Phase 5 -->
+      <div id="phase-5" class="phase-card">
+        <div class="phase-card__header">
+          <span class="phase-card__icon">📺</span>
+          <div class="phase-card__title">Phase 5 — Media Server &amp; Library Integration</div>
+          <span class="phase-card__status phase-card__status--done">Complete ✅</span>
+        </div>
+        <div class="phase-card__desc">
+          Connector to Jellyfin, Plex, and Emby for adult content libraries. Also integrate with
+          <strong>Stash</strong> — the open-source adult content organizer that provides performer
+          databases, scene tagging, and advanced metadata management. Stash integration gives
+          Voyeurr access to the most comprehensive adult performer database available.
+        </div>
+        <div class="phase-card__tasks">
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Jellyfin library sync: scan adult libraries, detect new content, update availability</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Plex/Emby connector parity with existing Jellyfin implementation</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Stash API integration: performer data, scene metadata, studio DB, tag sync</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Multi-library support: separate 4K/VR/1080p adult libraries</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Media availability indicators: "Available in 1080p", "Available in 4K", "Requested"</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Watch status sync: mark scenes as watched across all users</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Play-on-media-server: deep-link from Voyeurr to Jellyfin/Plex/Stash</div>
+        </div>
+      </div>
+
+      <!-- Phase 6 -->
+      <div id="phase-6" class="phase-card">
+        <div class="phase-card__header">
+          <span class="phase-card__icon">🔒</span>
+          <div class="phase-card__title">Phase 6 — Privacy &amp; Security Hardening</div>
+          <span class="phase-card__status phase-card__status--done">Complete ✅</span>
+        </div>
+        <div class="phase-card__desc">
+          Adult content platforms require stronger privacy guarantees. Implement age verification
+          gates, per-user content filtering (e.g., allow hentai but block JAV), encrypted metadata
+          at rest, VPN-aware networking, and privacy-preserving analytics (or none at all).
+        </div>
+        <div class="phase-card__tasks">
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Age verification gate: configurable 18+/21+ with date-of-birth prompt</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Per-user category allow/block lists (hentai, JAV, gay, trans, etc.)</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Privacy mode: no request history logging, anonymous requests</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> VPN-aware networking: respect SOCKS5/HTTP proxy for all external API calls</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Disable all telemetry, analytics, crash reporting (zero external calls)</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Encrypted database fields: API keys, tokens, user preferences</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> PWA privacy: no screenshots in recents, biometric lock option, private browsing</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Notification privacy: no scene titles in push notifications (configurable)</div>
+        </div>
+      </div>
+
+      <!-- Phase 7 -->
+      <div id="phase-7" class="phase-card">
+        <div class="phase-card__header">
+          <span class="phase-card__icon">🚀</span>
+          <div class="phase-card__title">Phase 7 — Documentation, Testing &amp; Deployment</div>
+          <span class="phase-card__status phase-card__status--done">Complete ✅</span>
+        </div>
+        <div class="phase-card__desc">
+          Productionize the stack. Write comprehensive documentation, build Docker Compose stacks
+          for the full Voyeurr + Whisparr + Jackett + Jellyfin + Stash deployment, create
+          Kubernetes Helm charts, and test end-to-end with real adult content metadata.
+        </div>
+        <div class="phase-card__tasks">
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Full API documentation (OpenAPI/Swagger) for all new adult endpoints</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> User guide: installation, Whisparr setup, indexer configuration, first request</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Docker Compose: voyeurr + whisparr + jackett + qBittorrent + jellyfin + stash + optional gluetun VPN + traefik reverse proxy</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Kubernetes Helm chart with all sub-services</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> End-to-end Cypress tests: login → discover → request → Whisparr → download → watch</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Load testing: 100+ concurrent users, 10K+ scene database</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Logo &amp; branding: create voyeurr logo variants, splash screens, favicons</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> CI/CD pipeline: GitHub Actions for build, test, Docker publish, Helm release</div>
+        </div>
+      </div>
+
+      <!-- Phase 8 -->
+      <div id="phase-8" class="phase-card">
+        <div class="phase-card__header">
+          <span class="phase-card__icon">🔌</span>
+          <div class="phase-card__title">Phase 8 — Metadata Provider Integration</div>
+          <span class="phase-card__status phase-card__status--done">Complete</span>
+        </div>
+        <div class="phase-card__desc">
+          Integrate external adult metadata APIs to populate Voyeurr's scene, performer, and
+          studio databases with rich metadata. Move beyond Stash-only imports to a multi-source
+          aggregation layer that pulls from ThePornDB, R18.dev, AdultDVDEmpire, nHentai, and more.
+        </div>
+        <div class="phase-card__tasks">
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> ThePornDB REST API client: scene search, performer lookup, studio info, trailers, tags</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> R18.dev / JavDB client: JAV-specific metadata, studio codes, actress kanji/romaji names</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> AdultDVDEmpire scraper: DVD/VOD covers, cast, synopsis, release dates</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Hentai providers: nHentai, Fakku, Hanime — manga/anime metadata, tags, artists</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Multi-source metadata aggregator: merge/conflict resolution, confidence scoring</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Scheduled metadata refresh: keep scene/performer data up-to-date from all sources</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Circuit breakers &amp; per-provider timeouts: prevent cascading failures from slow metadata APIs</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Image proxy &amp; caching for external adult metadata artwork</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Performer cross-reference: link same performer across all metadata sources</div>
+        </div>
+      </div>
+
+      <!-- Phase 9 -->
+      <div id="phase-9" class="phase-card">
+        <div class="phase-card__header">
+          <span class="phase-card__icon">🔍</span>
+          <div class="phase-card__title">Phase 9 — Advanced Search &amp; Discovery</div>
+          <span class="phase-card__status phase-card__status--done">Complete</span>
+        </div>
+        <div class="phase-card__desc">
+          Upgrade the search and discovery layer from basic TMDB-style queries to a full-featured
+          adult content search engine. Full-text search across scenes/performers/studios, faceted
+          filtering, similar-scene recommendations, and AI-powered content suggestions.
+        </div>
+        <div class="phase-card__tasks">
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Full-text search: PostgreSQL tsvector/trigram + SQLite FTS5 across scene titles, performer names, tags (migration + trigger-based auto-sync)</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Faceted filtering: multi-select category, performer, studio, quality, year, tag filters</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Similar scenes engine: content-based recommendations using tags + performer overlap</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Trending algorithm: weighted by recent requests, views, new releases, popularity</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> "More Like This" performer and studio suggestions</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Search autocomplete with performer/studio/scene suggestions</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Saved searches and custom discovery feeds per user</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> AI-powered recommendations: collaborative filtering + content-based embeddings</div>
+        </div>
+      </div>
+
+      <!-- Phase 10 -->
+      <div id="phase-10" class="phase-card">
+        <div class="phase-card__header">
+          <span class="phase-card__icon">⭐</span>
+          <div class="phase-card__title">Phase 10 — User Experience Enhancements</div>
+          <span class="phase-card__status phase-card__status--done">Complete</span>
+        </div>
+        <div class="phase-card__desc">
+          Deepen the user engagement layer with watchlists, ratings, reviews, favorites, and
+          personal collections. Transform Voyeurr from a request tool into a full content
+          curation platform where users build and share their libraries.
+        </div>
+        <div class="phase-card__tasks">
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Scene ratings: 1–5 star system with per-user rating history</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> User reviews: free-text reviews with optional spoiler tags</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Favorites: bookmark performers, studios, and scenes for quick access</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> User collections: create named sets ("Best VR Scenes", "JAV Favorites", etc.)</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Watch history: track viewed scenes, resume position, last watched</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Personalized home page: based on watch history, ratings, and performer follows</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Scene comparison: side-by-side metadata, performer overlap, tag similarity</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Accessibility: keyboard navigation, screen reader support, high-contrast mode</div>
+        </div>
+      </div>
+
+      <!-- Phase 11 -->
+      <div id="phase-11" class="phase-card">
+        <div class="phase-card__header">
+          <span class="phase-card__icon">🤖</span>
+          <div class="phase-card__title">Phase 11 — Automation &amp; Workflows</div>
+          <span class="phase-card__status phase-card__status--done">Complete</span>
+        </div>
+        <div class="phase-card__desc">
+          Build an intelligent automation layer that reduces manual intervention. Auto-approval
+          rules, quality upgrade policies, duplicate detection, content scheduling, and smart
+          request routing across multiple Whisparr instances.
+        </div>
+        <div class="phase-card__tasks">
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Auto-approval rules: by category, performer, studio, quality, request count</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Quality upgrade policies: auto-upgrade 1080p to 4K when available, VR priority</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Duplicate detection: hash-based + metadata matching to prevent redundant requests</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Content scheduling: time-based release monitoring, studio drop calendars</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Smart routing: distribute requests across multiple Whisparr instances by quality/type</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Request batching: group related scene requests for efficient indexer searches</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Failed request retry: exponential backoff, alternate indexer fallback</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Webhook triggers: fire custom webhooks on request state changes</div>
+        </div>
+      </div>
+
+      <!-- Phase 12 -->
+      <div id="phase-12" class="phase-card">
+        <div class="phase-card__header">
+          <span class="phase-card__icon">👥</span>
+          <div class="phase-card__title">Phase 12 — Multi-User &amp; Social Features</div>
+          <span class="phase-card__status phase-card__status--done">Complete</span>
+        </div>
+        <div class="phase-card__desc">
+          Enable collaboration and community features for shared media servers. Users can share
+          collections, see what others are watching, collaborate on curation, and engage through
+          an activity feed. Designed for private servers with trusted users.
+        </div>
+        <div class="phase-card__tasks">
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Shared collections: invite users to collaborate on curated scene sets</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Activity feed: recent requests, new additions, ratings from followed users</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> User follows: follow other users' public collections and activity</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Comments on scenes: per-scene discussion threads (opt-in, per-library)</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Collaborative curation: upvote/downvote tags, suggest performer corrections</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> User profiles: public bio, top rated, favorite performers, collection showcase</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Request voting: upvote pending requests to influence priority</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Group watch: coordinate viewing sessions with Jellyfin SyncPlay integration</div>
+        </div>
+      </div>
+
+      <!-- Phase 13 -->
+      <div id="phase-13" class="phase-card">
+        <div class="phase-card__header">
+          <span class="phase-card__icon">📊</span>
+          <div class="phase-card__title">Phase 13 — Analytics &amp; Admin Dashboard</div>
+          <span class="phase-card__status phase-card__status--done">Complete</span>
+        </div>
+        <div class="phase-card__desc">
+          Give server administrators deep visibility into their stack. Usage dashboards, content
+          popularity metrics, storage forecasting, download success rates, and system health
+          monitoring — all with the privacy guarantees Voyeurr is built on.
+        </div>
+        <div class="phase-card__tasks">
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Admin dashboard: key metrics at a glance — requests, downloads, users, storage</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Content analytics: most requested scenes, top performers, popular studios, genres</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> User analytics: active users, request patterns, quota usage (anonymized, opt-in)</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Storage forecasting: growth rate projections, capacity planning alerts</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Download metrics: success/failure rates by indexer, quality distribution</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> System health: service connectivity checks, response times, error rates</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Exportable reports: CSV/JSON data exports for external analysis</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Alerting: configurable thresholds for storage, failures, unusual activity</div>
+        </div>
+      </div>
+
+      <!-- Phase 14 -->
+      <div id="phase-14" class="phase-card">
+        <div class="phase-card__header">
+          <span class="phase-card__icon">🏭</span>
+          <div class="phase-card__title">Phase 14 — Production Hardening</div>
+          <span class="phase-card__status phase-card__status--done">Complete</span>
+        </div>
+        <div class="phase-card__desc">
+          Harden the entire stack for production deployments at scale. High availability with
+          load balancing, database replication and failover, CDN integration for image serving,
+          comprehensive backup/restore, rate limiting, and enterprise-grade monitoring.
+        </div>
+        <div class="phase-card__tasks">
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Horizontal scaling: stateless API layer behind load balancer, session store in Redis</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Database HA: PostgreSQL streaming replication, read replicas, automated failover</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> CDN integration: serve cached images through BunnyCDN / Cloudflare with privacy</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Backup &amp; restore: automated pg_dump + WAL archiving, point-in-time recovery</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Rate limiting: per-IP and per-user request throttling with configurable limits</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Monitoring stack: Prometheus metrics endpoint + Grafana dashboards</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Health checks: readiness/liveness probes, graceful shutdown, startup ordering</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Security scanning: dependency audit in CI, container vulnerability scanning, OWASP</div>
+        </div>
+      </div>
+
+      <!-- Phase 15 -->
+      <div id="phase-15" class="phase-card">
+        <div class="phase-card__header">
+          <span class="phase-card__icon">🔗</span>
+          <div class="phase-card__title">Phase 15 — Public API &amp; Webhook Ecosystem</div>
+          <span class="phase-card__status phase-card__status--done">Complete ✅</span>
+        </div>
+        <div class="phase-card__desc">
+          Expose a stable, versioned public REST API so external tools, scripts, and
+          community integrations can programmatically interact with Voyeurr. Paired with
+          a webhook subscription system for event-driven automation.
+        </div>
+        <div class="phase-card__tasks">
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Versioned public API (v1/v2) with OpenAPI 3.1 spec + validated endpoints</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Scoped API keys: read-only, request, admin — SHA-256 hashed, per-user tokens with expiry</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Webhook subscriptions: register URLs, choose events (12 event types), HMAC-SHA256 signing</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Webhook retry with exponential backoff (5 attempts), delivery logs, per-delivery tracking</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Rate limiting per API key: configurable RPM, burst allowance, usage tracking</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Webhook delivery history: success/failure counts, last delivery timestamp, error capture</div>
+        </div>
+      </div>
+
+      <!-- Phase 16 -->
+      <div id="phase-16" class="phase-card">
+        <div class="phase-card__header">
+          <span class="phase-card__icon">🔔</span>
+          <div class="phase-card__title">Phase 16 — Advanced Notification System</div>
+          <span class="phase-card__status phase-card__status--done">Complete ✅</span>
+        </div>
+        <div class="phase-card__desc">
+          Rich notifications with digest mode, notification grouping, and new channel
+          integrations — Apprise (80+ services), ntfy.sh, digest engine with hourly/daily/weekly batching.
+        </div>
+        <div class="phase-card__tasks">
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Apprise agent: unified API for 80+ notification services (Discord, Signal, Matrix, etc.)</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Notification digest engine: hourly/daily/weekly batched summaries with queue management</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Digest message builder: full markdown + compact push notification formats</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Notification grouping: collapse multiple updates into single summary</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Rich embeds: scene posters, performer headshots, quality badges (existing agents)</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Per-category notification preferences: subscribe to JAV, mute VR, etc. (user settings)</div>
+        </div>
+      </div>
+
+      <!-- Phase 17 -->
+      <div id="phase-17" class="phase-card">
+        <div class="phase-card__header">
+          <span class="phase-card__icon">📱</span>
+          <div class="phase-card__title">Phase 17 — Mobile Experience &amp; Native Apps</div>
+          <span class="phase-card__status phase-card__status--pending">Pending</span>
+        </div>
+        <div class="phase-card__desc">
+          Transform the PWA into a first-class mobile experience. Offline browsing,
+          background sync, native share sheets, biometric lock, and companion apps
+          via Capacitor/Tauri for iOS and Android app store distribution.
+        </div>
+        <div class="phase-card__tasks">
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Full offline mode: Service Worker caching of library, search, and scene metadata</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Background sync: queue requests while offline, submit when back online</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Biometric lock: fingerprint / Face ID gate before revealing adult content</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Native share sheet: share scene links, performer profiles via OS share</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Capacitor/Tauri wrapper: iOS App Store + Google Play compliant builds</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Mobile-optimized layouts: bottom nav, swipe gestures, haptic feedback</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Deep linking: voyeurr:// protocol handler for scene/performer/studio links</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Adaptive poster loading: resolution-aware image delivery for mobile data</div>
+        </div>
+      </div>
+
+      <!-- Phase 18 -->
+      <div id="phase-18" class="phase-card">
+        <div class="phase-card__header">
+          <span class="phase-card__icon">🧠</span>
+          <div class="phase-card__title">Phase 18 — AI/ML Content Intelligence</div>
+          <span class="phase-card__status phase-card__status--pending">Pending</span>
+        </div>
+        <div class="phase-card__desc">
+          Integrate machine learning for intelligent content analysis. Auto-tagging via
+          vision models, performer face recognition, content quality scoring, duplicate
+          detection with perceptual hashing, and AI-powered content moderation.
+        </div>
+        <div class="phase-card__tasks">
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Auto-tagging: CLIP/BLIP vision models classify scenes (positions, settings, attributes)</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Performer face recognition: match scene faces to performer database (CompreFace/DeepFace)</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Quality scoring: ML-based video quality assessment (compression artifacts, resolution, lighting)</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Perceptual hashing: pHash/dHash for exact and near-duplicate scene detection</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Content moderation: auto-detect CSAM/illegal content (PhotoDNA-compatible hashing)</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Speech-to-text: generate scene transcripts, search dialogue, subtitle generation</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Recommendation engine: collaborative filtering + content embeddings for discovery</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Local-first ML: run models on-device/on-server, no cloud dependency (privacy-preserving)</div>
+        </div>
+      </div>
+
+      <!-- Phase 19 -->
+      <div id="phase-19" class="phase-card">
+        <div class="phase-card__header">
+          <span class="phase-card__icon">🎲</span>
+          <div class="phase-card__title">Phase 19 — Smart Discovery &amp; Content Radio</div>
+          <span class="phase-card__status phase-card__status--done">Complete ✅</span>
+        </div>
+        <div class="phase-card__desc">
+          Go beyond search — make discovery effortless. Smart playlists that adapt to mood,
+          auto-play queues, shuffle modes weighted by ratings, and
+          "scene radio" that builds infinite streams from a seed scene.
+        </div>
+        <div class="phase-card__tasks">
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Scene Radio: infinite auto-play queue seeded from any scene, performer, or tag — content-based similarity</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Smart Playlists: dynamic rules engine — category, performer, studio, tag, rating, year, runtime filters</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Mood-based browsing: 8 curated channels — Romantic, Intense, Artistic, POV, Interracial, BDSM, Solo, Group</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Shuffle modes: weighted rating, new-first, performer-mix (diversity), studio-mix, pure random</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Recent drops: studio release calendar — new scenes from last 7 days</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--done"></span> Fisher-Yates + diversity shuffle algorithms for varied playback</div>
+        </div>
+      </div>
+
+      <!-- Phase 20 -->
+      <div id="phase-20" class="phase-card">
+        <div class="phase-card__header">
+          <span class="phase-card__icon">⬇️</span>
+          <div class="phase-card__title">Phase 20 — Advanced Download Management</div>
+          <span class="phase-card__status phase-card__status--pending">Pending</span>
+        </div>
+        <div class="phase-card__desc">
+          Full download lifecycle management. Queue prioritization, bandwidth scheduling
+          per time-of-day, seed ratio enforcement, partial download support, and
+          multi-client orchestration across qBittorrent, Transmission, SABnzbd, NZBGet.
+        </div>
+        <div class="phase-card__tasks">
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Unified download queue: view/manage all downloads across clients in one dashboard</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Bandwidth scheduling: throttle downloads during peak hours, full speed overnight</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Seed ratio enforcement: auto-pause when ratio target met, per-tracker rules</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Partial download: fetch specific files from multi-file torrents (skip extras/trailers)</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Multi-client support: Transmission, Deluge, rTorrent/ruTorrent, NZBGet</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Download history: per-scene download logs, retry counts, source tracker</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Health monitoring: stalled download detection, automatic re-search on failure</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> VPN-aware routing: ensure downloads only occur through VPN interface (kill switch)</div>
+        </div>
+      </div>
+
+      <!-- Phase 21 -->
+      <div id="phase-21" class="phase-card">
+        <div class="phase-card__header">
+          <span class="phase-card__icon">⚙️</span>
+          <div class="phase-card__title">Phase 21 — Media Processing Pipeline</div>
+          <span class="phase-card__status phase-card__status--pending">Pending</span>
+        </div>
+        <div class="phase-card__desc">
+          Post-download media processing. Transcoding profiles for bandwidth/device
+          optimization, format standardization, subtitle extraction and burn-in,
+          thumbnail generation at key moments, and automated file organization.
+        </div>
+        <div class="phase-card__tasks">
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Transcoding profiles: per-device/per-quality presets (mobile, TV, VR, archive)</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Format standardization: auto-convert to h265/AV1, strip unwanted audio/subs</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Thumbnail generation: extract scene previews at detected act/scene changes</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Subtitle pipeline: extract embedded subs, run Whisper speech-to-text, burn-in option</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Automated organization: rename files to Voyeurr naming convention, sort into folders</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Hardware acceleration: NVENC, QSV, VAAPI, VideoToolbox for fast transcoding</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Processing queue: priority-based job queue with parallel worker support</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Tdarr/FileFlows integration: delegate to external processing pipelines</div>
+        </div>
+      </div>
+
+      <!-- Phase 22 -->
+      <div id="phase-22" class="phase-card">
+        <div class="phase-card__header">
+          <span class="phase-card__icon">🌐</span>
+          <div class="phase-card__title">Phase 22 — Federation &amp; Decentralization</div>
+          <span class="phase-card__status phase-card__status--pending">Pending</span>
+        </div>
+        <div class="phase-card__desc">
+          Join the decentralized adult content ecosystem. ActivityPub federation for sharing
+          collections and reviews across instances, decentralized performer identity via
+          StashDB federation, and peer-to-peer metadata exchange without central servers.
+        </div>
+        <div class="phase-card__tasks">
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> ActivityPub integration: federate collections, ratings, reviews with other Voyeurr instances</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> StashDB federation: sync performer/studio data bidirectionally with Stash-box instances</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Decentralized performer IDs: DID-based performer identity that survives across databases</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Peer metadata exchange: share anonymized scene metadata with trusted peers</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Federated search: query metadata across federated instances (opt-in)</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> IPFS/Arweave metadata backup: decentralized, permanent metadata archival</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Community moderation via federation: shared blocklists, trusted curator networks</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Import/export: full library metadata portability between Voyeurr instances</div>
+        </div>
+      </div>
+
+      <!-- Phase 23 -->
+      <div id="phase-23" class="phase-card">
+        <div class="phase-card__header">
+          <span class="phase-card__icon">🔐</span>
+          <div class="phase-card__title">Phase 23 — Advanced Access Control</div>
+          <span class="phase-card__status phase-card__status--done">Complete ✅</span>
+        </div>
+        <div class="phase-card__desc">
+          Fine-grained access control beyond simple admin/user roles. Time-based access
+          windows, content rating gating, per-library and per-category permissions,
+          guest/limited accounts, and optional kid-safe mode for shared households.
+        </div>
+        <div class="phase-card__tasks">
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Per-library permissions: grant/deny access to specific Jellyfin/Plex libraries per user</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Per-category gating: hide JAV, VR, or specific categories from certain users</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Time-based access: allow access only during specific hours/days (parental controls)</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Guest accounts: time-limited, request-limited temporary access tokens</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Kid-safe mode: PIN/biometric gate that hides all adult content behind age-gate</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Content warning system: per-scene content descriptors with opt-in visibility</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Audit log: who accessed what and when, exportable for compliance</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> OAuth2/OIDC: single sign-on with Authentik, Authelia, Keycloak, LDAP</div>
+        </div>
+      </div>
+
+      <!-- Phase 24 -->
+      <div id="phase-24" class="phase-card">
+        <div class="phase-card__header">
+          <span class="phase-card__icon">🔒</span>
+          <div class="phase-card__title">Phase 24 — Content Integrity &amp; Verification</div>
+          <span class="phase-card__status phase-card__status--done">Complete ✅</span>
+        </div>
+        <div class="phase-card__desc">
+          Ensure your library is clean and complete. Cryptographic file verification,
+          automated corruption detection, missing file scanning, quality validation,
+          and library health reports so nothing slips through the cracks.
+        </div>
+        <div class="phase-card__tasks">
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Checksum verification: SHA256/BLAKE3 hashes stored at import, verified on schedule</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Corruption scanner: detect truncated, unplayable, or partially downloaded files</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Missing file detection: cross-reference DB entries with filesystem, flag orphans</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Quality validation: verify actual resolution/bitrate matches metadata claims</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Library health dashboard: visual overview of library integrity, aging, and coverage</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Automated repair: re-download corrupted files, upgrade low-quality versions</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Deduplication: find duplicate scenes across libraries with different filenames</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Provenance tracking: record where each file came from (tracker, indexer, date)</div>
+        </div>
+      </div>
+
+      <!-- Phase 25 -->
+      <div id="phase-25" class="phase-card">
+        <div class="phase-card__header">
+          <span class="phase-card__icon">🧩</span>
+          <div class="phase-card__title">Phase 25 — Plugin System &amp; Community Marketplace</div>
+          <span class="phase-card__status phase-card__status--pending">Pending</span>
+        </div>
+        <div class="phase-card__desc">
+          Open Voyeurr to community extensions. A sandboxed plugin API for custom metadata
+          providers, UI themes, notification agents, and automation scripts. Paired with
+          a community marketplace for discovering and sharing plugins.
+        </div>
+        <div class="phase-card__tasks">
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Plugin SDK: TypeScript API for metadata providers, UI hooks, notification agents</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Sandboxed runtime: isolate plugins with limited fs/network access (vm2/isolated-vm)</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> UI theme engine: CSS variable overrides, custom layouts, component injection points</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Plugin marketplace: browse, install, update plugins from within Voyeurr UI</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Plugin validation: automated security scanning, version compatibility checks</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Custom metadata providers: community-built scrapers for regional/specialty databases</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Automation scripts: custom request rules, post-processing hooks, naming templates</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Plugin CLI: scaffold, test, and publish plugins from the command line</div>
+        </div>
+      </div>
+
+      <!-- Phase 26 -->
+      <div id="phase-26" class="phase-card">
+        <div class="phase-card__header">
+          <span class="phase-card__icon">🌍</span>
+          <div class="phase-card__title">Phase 26 — Internationalization &amp; Accessibility</div>
+          <span class="phase-card__status phase-card__status--pending">Pending</span>
+        </div>
+        <div class="phase-card__desc">
+          Make Voyeurr accessible to everyone, everywhere. RTL language support,
+          crowd-sourced translations via Weblate, locale-aware content discovery,
+          WCAG 2.2 AA compliance, and comprehensive screen reader support.
+        </div>
+        <div class="phase-card__tasks">
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> RTL support: Arabic, Hebrew, Persian — full layout mirroring and text direction</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Weblate integration: community translation platform, automated PRs for new strings</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Locale-aware content: regional release dates, localized performer names, country flags</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> WCAG 2.2 AA: color contrast, focus indicators, semantic HTML, skip links</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Screen reader: ARIA labels, live regions, role attributes across all components</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Keyboard navigation: full site operable without mouse, visible focus rings</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> High-contrast mode: toggle for visual accessibility, respects OS preference</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Reduced motion: respect prefers-reduced-motion, disable animations</div>
+        </div>
+      </div>
+
+      <!-- Phase 27 -->
+      <div id="phase-27" class="phase-card">
+        <div class="phase-card__header">
+          <span class="phase-card__icon">⚡</span>
+          <div class="phase-card__title">Phase 27 — Performance Optimization</div>
+          <span class="phase-card__status phase-card__status--done">Complete ✅</span>
+        </div>
+        <div class="phase-card__desc">
+          Make Voyeurr blazing fast at any scale. Virtual scrolling for massive libraries,
+          intelligent lazy loading, SSR streaming, bundle splitting, image CDN with
+          on-the-fly resizing, and database query optimization for 100K+ scene libraries.
+        </div>
+        <div class="phase-card__tasks">
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Virtual scrolling: render 100K+ items without DOM bloat (TanStack Virtual)</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Intelligent lazy loading: IntersectionObserver with predictive pre-fetching</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> SSR streaming: render shell instantly, stream content progressively</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Bundle splitting: route-based code splitting, dynamic imports for heavy components</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Image pipeline: Sharp/Thumbor on-the-fly resize, WebP/AVIF, responsive srcset</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> DB optimization: materialized views, query caching, connection pooling, read replicas</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> CDN edge caching: Cache-Control headers, stale-while-revalidate, CDN purging</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Lighthouse score target: 95+ Performance, 100 Accessibility, 100 Best Practices</div>
+        </div>
+      </div>
+
+      <!-- Phase 28 -->
+      <div id="phase-28" class="phase-card">
+        <div class="phase-card__header">
+          <span class="phase-card__icon">⚖️</span>
+          <div class="phase-card__title">Phase 28 — Compliance, Legal &amp; Trust &amp; Safety</div>
+          <span class="phase-card__status phase-card__status--pending">Pending</span>
+        </div>
+        <div class="phase-card__desc">
+          Build the trust and safety infrastructure required for responsible adult platform
+          operation. Age verification, consent documentation, DMCA tools, geo-restriction
+          compliance, content provenance tracking, and transparent moderation tooling.
+        </div>
+        <div class="phase-card__tasks">
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Age verification: AVS integration, age estimation, self-declaration with audit trail</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Consent documentation: per-performer consent records, scene-level attestation tracking</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> DMCA/notice-and-takedown: automated complaint intake, content flagging, compliance workflow</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Geo-restriction: per-country content blocking, GDPR/CCPA data controls, right-to-delete</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Content provenance: C2PA/CAI-compatible metadata chain, cryptographic content signing</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Moderation dashboard: flag, review, approve/reject content with audit history</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Blocklist federation: subscribe to shared blocklists (performers, studios, content hashes)</div>
+          <div class="phase-card__task"><span class="phase-card__task-dot phase-card__task-dot--todo"></span> Transparency reports: auto-generated compliance reports for instance operators</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- INTEGRATION MATRIX                                   -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <section id="integrations">
+    <div class="section-header">
+      <span class="section-header__icon">🔌</span>
+      <h2>External Service Integration Matrix</h2>
+      <span class="section-header__badge">12 Services</span>
+    </div>
+
+    <div class="arch-map">
+      <div class="arch-map__title">Every External Service Voyeurr Needs</div>
+      <div class="arch-map__subtitle">Categorized by function — automation, indexing, metadata, media server, download</div>
+
+      <table class="integration-table">
+        <thead>
+          <tr><th>Service</th><th>Purpose</th><th>API Type</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>🍑 Whisparr</td>
+            <td>Adult content automation (*arr stack). Monitors, searches, grabs, renames scenes. The core automation engine.</td>
+            <td>REST (Sonarr v3 + Eros native Scene/Performer/Studio)</td>
+            <td><span class="status-pill status-pill--ready">Existing</span></td>
+          </tr>
+          <tr>
+            <td>🧲 Jackett</td>
+            <td>Torrent indexer proxy. Unifies 180+ trackers behind a single Torznab/Newznab API. Adult-specific tracker support.</td>
+            <td>Torznab / Newznab</td>
+            <td><span class="status-pill status-pill--ready">Existing</span></td>
+          </tr>
+          <tr>
+            <td>🔎 Prowlarr</td>
+            <td>Next-gen indexer manager (Jackett successor). Native *arr integration, better adult tracker support.</td>
+            <td>REST + Newznab</td>
+            <td><span class="status-pill status-pill--ready">Existing</span></td>
+          </tr>
+          <tr>
+            <td>🔞 ThePornDB</td>
+            <td>Primary adult metadata provider. Scene listings, performer database, studio info, trailers, tags.</td>
+            <td>REST (API key required)</td>
+            <td><span class="status-pill status-pill--ready">Existing</span></td>
+          </tr>
+          <tr>
+            <td>🎬 AdultDVDEmpire</td>
+            <td>DVD/VOD metadata: covers, cast, descriptions, release dates. Complementary to TPDB.</td>
+            <td>REST / Web scraping</td>
+            <td><span class="status-pill status-pill--ready">Existing</span></td>
+          </tr>
+          <tr>
+            <td>🇯🇵 R18.dev / JavDB</td>
+            <td>Japanese Adult Video (JAV) metadata. Japanese-specific: studio codes, actress kanji names, release IDs.</td>
+            <td>REST / GraphQL</td>
+            <td><span class="status-pill status-pill--ready">Existing</span></td>
+          </tr>
+          <tr>
+            <td>🌸 Hentai Providers</td>
+            <td>nHentai, Fakku, Hanime — hentai manga/anime metadata including tags, artists, circles, parodies.</td>
+            <td>REST (various)</td>
+            <td><span class="status-pill status-pill--ready">Existing</span></td>
+          </tr>
+          <tr>
+            <td>🏷️ Stash</td>
+            <td>Adult content organizer. Performer DB, scene tagger, gallery manager. GraphQL API.</td>
+            <td>GraphQL</td>
+            <td><span class="status-pill status-pill--ext">External</span></td>
+          </tr>
+          <tr>
+            <td>📺 Jellyfin / Plex</td>
+            <td>Media servers for playback. Library scanning, watch status, transcoding. Already partially supported.</td>
+            <td>REST</td>
+            <td><span class="status-pill status-pill--ready">Existing</span></td>
+          </tr>
+          <tr>
+            <td>⬇️ qBittorrent</td>
+            <td>Torrent download client. Receives .torrent files from Whisparr, manages downloads.</td>
+            <td>REST</td>
+            <td><span class="status-pill status-pill--ext">External</span></td>
+          </tr>
+          <tr>
+            <td>📥 SABnzbd / NZBGet</td>
+            <td>Usenet download clients. For Usenet-based adult content acquisition.</td>
+            <td>REST</td>
+            <td><span class="status-pill status-pill--ext">External</span></td>
+          </tr>
+          <tr>
+            <td>🔐 Plex / Emby / Jellyfin SSO</td>
+            <td>Authentication via existing media server accounts. No separate Voyeurr login needed.</td>
+            <td>OAuth / API Key</td>
+            <td><span class="status-pill status-pill--ready">Existing</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- CONTENT CATEGORIES                                    -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <section id="content-categories">
+    <div class="section-header">
+      <span class="section-header__icon">🏷️</span>
+      <h2>Content Categories &amp; Metadata Model</h2>
+      <span class="section-header__badge">Taxonomy</span>
+    </div>
+
+    <p class="section-note">
+      Adult content requires a fundamentally different taxonomy than mainstream media. Below is
+      the complete category system Voyeurr will support, mapped to metadata providers and Whisparr.
+    </p>
+
+    <div class="tier-grid">
+      <div class="tier-card">
+        <div class="tier-card__label">🎬 Primary Content Types</div>
+        <ul>
+          <li><strong>Scene</strong> — Single scene release (most common). 20–60 min. Studio-produced or amateur.</li>
+          <li><strong>Movie / Feature</strong> — Full-length adult film. 60–180 min. Narrative structure. DVD/VOD release.</li>
+          <li><strong>Channel Release</strong> — Recurring series from a specific channel/studio (e.g., "Tushy Raw V47").</li>
+          <li><strong>Collection / Series</strong> — Grouped releases. Ordered. E.g., all "Blacked Raw" episodes.</li>
+          <li><strong>Compilation</strong> — Edited supercut. Multi-scene, multi-performer highlight reel.</li>
+        </ul>
+      </div>
+      <div class="tier-card">
+        <div class="tier-card__label">🌍 Regional / Genre Categories</div>
+        <ul>
+          <li><strong>JAV</strong> — Japanese Adult Video. Censored/uncensored. Studio codes, actress IDs (DMM/FANZA).</li>
+          <li><strong>Hentai</strong> — Animated adult. 2D/3D. Manga doujinshi, anime OVAs, visual novels.</li>
+          <li><strong>Western</strong> — US/EU professional productions. Brazzers, Vixen, Blacked, etc.</li>
+          <li><strong>Amateur / OnlyFans</strong> — Self-produced. Creator-direct. Clips and full scenes.</li>
+          <li><strong>VR (Virtual Reality)</strong> — 180°/360° stereoscopic. Special playback requirements.</li>
+        </ul>
+      </div>
+      <div class="tier-card">
+        <div class="tier-card__label">🎯 Target Audience Categories</div>
+        <ul>
+          <li><strong>Straight</strong> — Male/female, female/female content</li>
+          <li><strong>Gay</strong> — Male/male content</li>
+          <li><strong>Trans / TS</strong> — Transgender performer content</li>
+          <li><strong>Queer / Bi</strong> — Mixed-gender, multi-partner scenes</li>
+        </ul>
+      </div>
+      <div class="tier-card">
+        <div class="tier-card__label">🎥 Technical / Format Categories</div>
+        <ul>
+          <li><strong>4K / UHD</strong> — 2160p resolution. Separate tracking from 1080p in Whisparr.</li>
+          <li><strong>60fps</strong> — High frame rate scenes. Whisparr custom format.</li>
+          <li><strong>Uncensored</strong> — JAV specifically. Mosaic-removed or originally uncensored.</li>
+          <li><strong>Leaked</strong> — Unreleased/private content. Controversial — optional, off by default.</li>
+          <li><strong>Remastered</strong> — Upscaled/restored older scenes (AI-enhanced).</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- METADATA PROVIDER DETAIL                              -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <section id="metadata">
+    <div class="section-header">
+      <span class="section-header__icon">📊</span>
+      <h2>Metadata Provider Architecture</h2>
+      <span class="section-header__badge">6 Providers</span>
+    </div>
+
+    <p class="section-note">
+      Voyeurr must aggregate metadata from multiple adult-specific providers since no single
+      provider covers all content types. The existing TMDB integration is replaced with a
+      <strong>multi-provider aggregation layer</strong> that merges results, deduplicates, and
+      enriches with the best available data from each source.
+    </p>
+
+    <div class="chart-grid">
+      <!-- Metadata Coverage Donut -->
+      <div class="chart-card">
+        <div class="chart-card__title">Metadata Coverage by Category</div>
+        <div class="chart-card__desc">Which providers cover which content types</div>
+        <div class="chart-card__body">
+          <div class="legend-inline">
+            <span class="legend-item"><span class="legend-swatch" style="background:var(--green)"></span> ThePornDB (all Western)</span>
+            <span class="legend-item"><span class="legend-swatch" style="background:var(--blue)"></span> R18/JavDB (JAV)</span>
+            <span class="legend-item"><span class="legend-swatch" style="background:var(--pink)"></span> nHentai (Hentai)</span>
+            <span class="legend-item"><span class="legend-swatch" style="background:var(--amber)"></span> StashDB (community)</span>
+            <span class="legend-item"><span class="legend-swatch" style="background:var(--accent)"></span> AdultDVDEmpire</span>
+            <span class="legend-item"><span class="legend-swatch" style="background:var(--rule)"></span> No coverage yet</span>
+          </div>
+          <table class="charts-css pie show-labels">
+            <caption>Metadata Coverage Distribution</caption>
+            <thead><tr><th scope="col">Provider</th><th scope="col">Share</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">ThePornDB</th><td style="--start:0.00;--end:0.45;--color:var(--green)"><span class="data">45%</span></td></tr>
+              <tr><th scope="row">R18/JavDB</th><td style="--start:0.45;--end:0.70;--color:var(--blue)"><span class="data">25%</span></td></tr>
+              <tr><th scope="row">nHentai/Fakku</th><td style="--start:0.70;--end:0.85;--color:var(--pink)"><span class="data">15%</span></td></tr>
+              <tr><th scope="row">StashDB</th><td style="--start:0.85;--end:0.95;--color:var(--amber)"><span class="data">10%</span></td></tr>
+              <tr><th scope="row">AdultDVDEmpire</th><td style="--start:0.95;--end:1.00;--color:var(--accent)"><span class="data">5%</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Provider Readiness Bar Chart -->
+      <div class="chart-card">
+        <div class="chart-card__title">API Integration Complexity</div>
+        <div class="chart-card__desc">Relative effort to integrate each metadata provider</div>
+        <div class="chart-card__body">
+          <table class="charts-css bar show-labels show-primary-axis show-data-axes show-4-secondary-axes">
+            <caption>Integration Complexity</caption>
+            <thead><tr><th scope="col">Provider</th><th scope="col">Effort</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">ThePornDB</th><td style="--size:0.35"><span class="data">Easy</span></td></tr>
+              <tr><th scope="row">StashDB</th><td style="--size:0.25"><span class="data">Trivial</span></td></tr>
+              <tr><th scope="row">AdultDVDEmpire</th><td style="--size:0.55"><span class="data">Medium</span></td></tr>
+              <tr><th scope="row">R18.dev</th><td style="--size:0.70"><span class="data">Hard</span></td></tr>
+              <tr><th scope="row">JavDB</th><td style="--size:0.65"><span class="data">Hard</span></td></tr>
+              <tr><th scope="row">nHentai</th><td style="--size:0.40"><span class="data">Easy</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- NAVIGATION                                           -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <section>
+    <p class="section-label">Reference</p>
+    <h2>Key Documentation &amp; API References</h2>
+    <div class="link-grid">
+      <div class="link-card">
+        <div class="link-card__title">🍑 Whisparr API Docs</div>
+        <div class="link-card__desc">Sonarr v3 compatible API. /api/v3/movie, /api/v3/qualityprofile, /api/v3/rootfolder. Full *arr ecosystem compatibility.</div>
+      </div>
+      <div class="link-card">
+        <div class="link-card__title">🧲 Jackett API Reference</div>
+        <div class="link-card__desc">Torznab + Newznab unified API. Single endpoint for 180+ trackers. Adult category filtering via Newznab categories 5000+.</div>
+      </div>
+      <div class="link-card">
+        <div class="link-card__title">🔞 ThePornDB API</div>
+        <div class="link-card__desc">REST API with scene, performer, studio, and image endpoints. The most comprehensive Western adult metadata provider.</div>
+      </div>
+      <div class="link-card">
+        <div class="link-card__title">🏷️ StashDB / Stash-box</div>
+        <div class="link-card__desc">Community-driven performer database. GraphQL API. Open source. Integration via stash-box GraphQL endpoint.</div>
+      </div>
+      <div class="link-card">
+        <div class="link-card__title">📺 Jellyfin API</div>
+        <div class="link-card__desc">Already integrated. Extend for adult library scanning with separate library type detection.</div>
+      </div>
+      <div class="link-card">
+        <div class="link-card__title">🇯🇵 R18.dev / JavDB</div>
+        <div class="link-card__desc">Japanese Adult Video metadata. R18.dev provides open REST API. JavDB is the community database with GraphQL.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- DOCKER STACK PREVIEW                                 -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <section id="docker-stack">
+    <div class="section-header">
+      <span class="section-header__icon">🐳</span>
+      <h2>Target Docker Stack</h2>
+      <span class="section-header__badge">Infrastructure</span>
+    </div>
+
+    <div class="arch-map">
+      <div class="arch-map__title">Complete Voyeurr Media Stack — Single docker-compose.yml</div>
+      <div class="arch-map__subtitle">Every container needed for a full adult media automation pipeline</div>
+
+      <div class="map-layers">
+        <div class="map-layer">
+          <div class="map-layer__label">Core Services</div>
+          <div class="map-nodes">
+            <div class="map-node"><span class="map-node__icon">🔞</span><div class="map-node__name">voyeurr</div><div class="map-node__detail">:5055 · Next.js + Express</div></div>
+            <div class="map-node"><span class="map-node__icon">🍑</span><div class="map-node__name">whisparr</div><div class="map-node__detail">:6969 · Adult *arr</div></div>
+            <div class="map-node"><span class="map-node__icon">🔎</span><div class="map-node__name">prowlarr</div><div class="map-node__detail">:9696 · Indexer mgmt</div></div>
+            <div class="map-node"><span class="map-node__icon">🧲</span><div class="map-node__name">jackett</div><div class="map-node__detail">:9117 · Tracker proxy</div></div>
+          </div>
+        </div>
+        <div class="map-layer">
+          <div class="map-layer__label">Download + Media</div>
+          <div class="map-nodes">
+            <div class="map-node"><span class="map-node__icon">⬇️</span><div class="map-node__name">qbittorrent</div><div class="map-node__detail">:8080 · Torrent client</div></div>
+            <div class="map-node"><span class="map-node__icon">📥</span><div class="map-node__name">sabnzbd</div><div class="map-node__detail">:8080 · Usenet client</div></div>
+            <div class="map-node"><span class="map-node__icon">📺</span><div class="map-node__name">jellyfin</div><div class="map-node__detail">:8096 · Media server</div></div>
+            <div class="map-node"><span class="map-node__icon">🏷️</span><div class="map-node__name">stash</div><div class="map-node__detail">:9999 · Organizer</div></div>
+          </div>
+        </div>
+        <div class="map-layer">
+          <div class="map-layer__label">Infrastructure</div>
+          <div class="map-nodes">
+            <div class="map-node"><span class="map-node__icon">🗄️</span><div class="map-node__name">postgres</div><div class="map-node__detail">:5432 · Database</div></div>
+            <div class="map-node"><span class="map-node__icon">📦</span><div class="map-node__name">redis</div><div class="map-node__detail">:6379 · Cache</div></div>
+            <div class="map-node"><span class="map-node__icon">🔒</span><div class="map-node__name">gluetun</div><div class="map-node__detail">VPN tunnel</div></div>
+            <div class="map-node"><span class="map-node__icon">🔄</span><div class="map-node__name">traefik</div><div class="map-node__detail">Reverse proxy</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- COUNTER STRIP                                        -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <div class="glow-separator">
+    <div class="glow-separator__dot"></div>
+  </div>
+
+  <div class="counter-strip">
+    <div class="counter-item">
+      <div class="counter-item__value">29</div>
+      <div class="counter-item__label">Phases</div>
+    </div>
+    <div class="counter-item">
+      <div class="counter-item__value">12</div>
+      <div class="counter-item__label">External Services</div>
+    </div>
+    <div class="counter-item">
+      <div class="counter-item__value">10</div>
+      <div class="counter-item__label">Content Categories</div>
+    </div>
+    <div class="counter-item">
+      <div class="counter-item__value">6</div>
+      <div class="counter-item__label">Metadata Providers</div>
+    </div>
+    <div class="counter-item">
+      <div class="counter-item__value">37</div>
+      <div class="counter-item__label">i18n Locales</div>
+    </div>
+    <div class="counter-item">
+      <div class="counter-item__value">120</div>
+      <div class="counter-item__label">Files Renamed</div>
+    </div>
+  </div>
+
+  <div class="glow-separator">
+    <div class="glow-separator__dot"></div>
+  </div>
+
+  <footer class="site-footer">
+    <p>🔞 Voyeurr · Adult Media Request Platform · Conversion Plan · 2026.06.12</p>
+    <p>Forked from Seerr/Jellyseerr · Catppuccin Mocha · Geist typeface</p>
+  </footer>
+
+</main>
+</body>
+</html>

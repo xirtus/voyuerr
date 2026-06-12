@@ -1,0 +1,421 @@
+import IndexerBase from '@server/api/indexers/base';
+import JackettAPI from '@server/api/indexers/jackett';
+import ProwlarrAPI from '@server/api/indexers/prowlarr';
+import RadarrAPI from '@server/api/servarr/radarr';
+import SonarrAPI from '@server/api/servarr/sonarr';
+import WhisparrAPI from '@server/api/servarr/whisparr';
+import TheMovieDb from '@server/api/themoviedb';
+import type { ParsedIndexerResult } from '@server/interfaces/api/indexerInterfaces';
+import type {
+  ServiceCommonServer,
+  ServiceCommonServerWithDetails,
+} from '@server/interfaces/api/serviceInterfaces';
+import { getSettings } from '@server/lib/settings';
+import logger from '@server/logger';
+import { Router } from 'express';
+
+const serviceRoutes = Router();
+
+serviceRoutes.get('/radarr', async (req, res) => {
+  const settings = getSettings();
+
+  const filteredRadarrServers: ServiceCommonServer[] = settings.radarr.map(
+    (radarr) => ({
+      id: radarr.id,
+      name: radarr.name,
+      is4k: radarr.is4k,
+      isDefault: radarr.isDefault,
+      activeDirectory: radarr.activeDirectory,
+      activeProfileId: radarr.activeProfileId,
+      activeTags: radarr.tags ?? [],
+    })
+  );
+
+  return res.status(200).json(filteredRadarrServers);
+});
+
+serviceRoutes.get<{ radarrId: string }>(
+  '/radarr/:radarrId',
+  async (req, res, next) => {
+    const settings = getSettings();
+
+    const radarrSettings = settings.radarr.find(
+      (radarr) => radarr.id === Number(req.params.radarrId)
+    );
+
+    if (!radarrSettings) {
+      return next({
+        status: 404,
+        message: 'Radarr server with provided ID  does not exist.',
+      });
+    }
+
+    const radarr = new RadarrAPI({
+      apiKey: radarrSettings.apiKey,
+      url: RadarrAPI.buildUrl(radarrSettings, '/api/v3'),
+    });
+
+    const profiles = await radarr.getProfiles();
+    const rootFolders = await radarr.getRootFolders();
+    const tags = await radarr.getTags();
+
+    return res.status(200).json({
+      server: {
+        id: radarrSettings.id,
+        name: radarrSettings.name,
+        is4k: radarrSettings.is4k,
+        isDefault: radarrSettings.isDefault,
+        activeDirectory: radarrSettings.activeDirectory,
+        activeProfileId: radarrSettings.activeProfileId,
+        activeTags: radarrSettings.tags,
+      },
+      profiles: profiles.map((profile) => ({
+        id: profile.id,
+        name: profile.name,
+      })),
+      rootFolders: rootFolders.map((folder) => ({
+        id: folder.id,
+        freeSpace: folder.freeSpace,
+        path: folder.path,
+        totalSpace: folder.totalSpace,
+      })),
+      tags,
+    } as ServiceCommonServerWithDetails);
+  }
+);
+
+serviceRoutes.get('/sonarr', async (req, res) => {
+  const settings = getSettings();
+
+  const filteredSonarrServers: ServiceCommonServer[] = settings.sonarr.map(
+    (sonarr) => ({
+      id: sonarr.id,
+      name: sonarr.name,
+      is4k: sonarr.is4k,
+      isDefault: sonarr.isDefault,
+      activeDirectory: sonarr.activeDirectory,
+      activeProfileId: sonarr.activeProfileId,
+      activeAnimeProfileId: sonarr.activeAnimeProfileId,
+      activeAnimeDirectory: sonarr.activeAnimeDirectory,
+      activeLanguageProfileId: sonarr.activeLanguageProfileId,
+      activeAnimeLanguageProfileId: sonarr.activeAnimeLanguageProfileId,
+      activeTags: [],
+    })
+  );
+
+  return res.status(200).json(filteredSonarrServers);
+});
+
+serviceRoutes.get<{ sonarrId: string }>(
+  '/sonarr/:sonarrId',
+  async (req, res, next) => {
+    const settings = getSettings();
+
+    const sonarrSettings = settings.sonarr.find(
+      (sonarr) => sonarr.id === Number(req.params.sonarrId)
+    );
+
+    if (!sonarrSettings) {
+      return next({
+        status: 404,
+        message: 'Sonarr server with provided ID does not exist.',
+      });
+    }
+
+    const sonarr = new SonarrAPI({
+      apiKey: sonarrSettings.apiKey,
+      url: SonarrAPI.buildUrl(sonarrSettings, '/api/v3'),
+    });
+
+    try {
+      const systemStatus = await sonarr.getSystemStatus();
+      const sonarrMajorVersion = Number(systemStatus.version.split('.')[0]);
+
+      const profiles = await sonarr.getProfiles();
+      const rootFolders = await sonarr.getRootFolders();
+      const languageProfiles =
+        sonarrMajorVersion <= 3 ? await sonarr.getLanguageProfiles() : null;
+      const tags = await sonarr.getTags();
+
+      return res.status(200).json({
+        server: {
+          id: sonarrSettings.id,
+          name: sonarrSettings.name,
+          is4k: sonarrSettings.is4k,
+          isDefault: sonarrSettings.isDefault,
+          activeDirectory: sonarrSettings.activeDirectory,
+          activeProfileId: sonarrSettings.activeProfileId,
+          activeAnimeProfileId: sonarrSettings.activeAnimeProfileId,
+          activeAnimeDirectory: sonarrSettings.activeAnimeDirectory,
+          activeLanguageProfileId: sonarrSettings.activeLanguageProfileId,
+          activeAnimeLanguageProfileId:
+            sonarrSettings.activeAnimeLanguageProfileId,
+          activeTags: sonarrSettings.tags,
+          activeAnimeTags: sonarrSettings.animeTags,
+        },
+        profiles: profiles.map((profile) => ({
+          id: profile.id,
+          name: profile.name,
+        })),
+        rootFolders: rootFolders.map((folder) => ({
+          id: folder.id,
+          freeSpace: folder.freeSpace,
+          path: folder.path,
+          totalSpace: folder.totalSpace,
+        })),
+        languageProfiles: languageProfiles,
+        tags,
+      } as ServiceCommonServerWithDetails);
+    } catch (e) {
+      next({ status: 500, message: e.message });
+    }
+  }
+);
+
+serviceRoutes.get('/whisparr', async (req, res) => {
+  const settings = getSettings();
+
+  const filteredWhisparrServers: ServiceCommonServer[] = settings.whisparr.map(
+    (whisparr) => ({
+      id: whisparr.id,
+      name: whisparr.name,
+      is4k: whisparr.is4k,
+      isDefault: whisparr.isDefault,
+      activeDirectory: whisparr.activeDirectory,
+      activeProfileId: whisparr.activeProfileId,
+      activeTags: whisparr.tags ?? [],
+    })
+  );
+
+  return res.status(200).json(filteredWhisparrServers);
+});
+
+serviceRoutes.get<{ whisparrId: string }>(
+  '/whisparr/:whisparrId',
+  async (req, res, next) => {
+    const settings = getSettings();
+
+    const whisparrSettings = settings.whisparr.find(
+      (whisparr) => whisparr.id === Number(req.params.whisparrId)
+    );
+
+    if (!whisparrSettings) {
+      return next({
+        status: 404,
+        message: 'Whisparr server with provided ID does not exist.',
+      });
+    }
+
+    const whisparr = new WhisparrAPI({
+      apiKey: whisparrSettings.apiKey,
+      url: WhisparrAPI.buildUrl(whisparrSettings, '/api/v3'),
+    });
+
+    const profiles = await whisparr.getProfiles();
+    const rootFolders = await whisparr.getRootFolders();
+    const tags = await whisparr.getTags();
+
+    return res.status(200).json({
+      server: {
+        id: whisparrSettings.id,
+        name: whisparrSettings.name,
+        is4k: whisparrSettings.is4k,
+        isDefault: whisparrSettings.isDefault,
+        activeDirectory: whisparrSettings.activeDirectory,
+        activeProfileId: whisparrSettings.activeProfileId,
+        activeTags: whisparrSettings.tags,
+      },
+      profiles: profiles.map((profile) => ({
+        id: profile.id,
+        name: profile.name,
+      })),
+      rootFolders: rootFolders.map((folder) => ({
+        id: folder.id,
+        freeSpace: folder.freeSpace,
+        path: folder.path,
+        totalSpace: folder.totalSpace,
+      })),
+      tags,
+    } as ServiceCommonServerWithDetails);
+  }
+);
+
+serviceRoutes.get<{ tmdbId: string }>(
+  '/sonarr/lookup/:tmdbId',
+  async (req, res, next) => {
+    const settings = getSettings();
+    const tmdb = new TheMovieDb();
+
+    const sonarrSettings = settings.sonarr[0];
+
+    if (!sonarrSettings) {
+      logger.error('No sonarr server has been setup', {
+        label: 'Media Request',
+      });
+      return next({
+        status: 404,
+        message: 'No sonarr server has been setup',
+      });
+    }
+
+    const sonarr = new SonarrAPI({
+      apiKey: sonarrSettings.apiKey,
+      url: SonarrAPI.buildUrl(sonarrSettings, '/api/v3'),
+    });
+
+    try {
+      const tv = await tmdb.getTvShow({
+        tvId: Number(req.params.tmdbId),
+        language: 'en',
+      });
+
+      const response = await sonarr.getSeriesByTitle(tv.name);
+
+      return res.status(200).json(response);
+    } catch (e) {
+      logger.error('Failed to fetch tvdb search results', {
+        label: 'Media Request',
+        message: e.message,
+      });
+
+      return next({
+        status: 500,
+        message: 'Something went wrong trying to fetch series information',
+      });
+    }
+  }
+);
+
+// ── Indexer endpoints ─────────────────────────────────────────────
+
+serviceRoutes.get('/indexer', async (_req, res) => {
+  const settings = getSettings();
+
+  const servers = settings.indexer.map((idx) => ({
+    id: idx.id,
+    name: idx.name,
+    type: idx.type,
+    priority: idx.priority,
+    enabled: idx.enabled,
+    activeCategories: idx.activeCategories,
+    indexers: idx.indexers ?? [],
+  }));
+
+  return res.status(200).json(servers);
+});
+
+serviceRoutes.get('/indexer/:id/indexers', async (req, res, next) => {
+  const settings = getSettings();
+
+  const idx = settings.indexer.find(
+    (i) => i.id === Number(req.params.id)
+  );
+
+  if (!idx) {
+    return next({ status: 404, message: 'Indexer server not found' });
+  }
+
+  try {
+    const baseUrlStr = idx.baseUrl
+      ? idx.baseUrl.startsWith('/')
+        ? idx.baseUrl
+        : `/${idx.baseUrl}`
+      : '';
+    const protocol = idx.useSsl ? 'https' : 'http';
+    const url = `${protocol}://${idx.hostname}:${idx.port}${baseUrlStr}`;
+
+    if (idx.type === 'jackett') {
+      const jackett = new JackettAPI({ url, apiKey: idx.apiKey });
+      const response = await jackett.getIndexers();
+      return res.status(200).json(response.indexers);
+    } else {
+      const prowlarr = new ProwlarrAPI({ url, apiKey: idx.apiKey });
+      const response = await prowlarr.getIndexers();
+      return res.status(200).json(response);
+    }
+  } catch (e) {
+    logger.error('Failed to fetch indexers', {
+      label: 'Indexer',
+      error: e.message,
+    });
+    next({ status: 500, message: 'Failed to fetch indexers' });
+  }
+});
+
+serviceRoutes.get<{ id: string; query: string }>(
+  '/indexer/:id/search',
+  async (req, res, next) => {
+    const settings = getSettings();
+
+    const idx = settings.indexer.find(
+      (i) => i.id === Number(req.params.id)
+    );
+
+    if (!idx) {
+      return next({ status: 404, message: 'Indexer server not found' });
+    }
+
+    const query = (req.query.query as string) ?? '';
+    const categories = req.query.categories
+      ? (req.query.categories as string).split(',').map(Number)
+      : idx.activeCategories;
+
+    try {
+      const baseUrlStr = idx.baseUrl
+        ? idx.baseUrl.startsWith('/')
+          ? idx.baseUrl
+          : `/${idx.baseUrl}`
+        : '';
+      const protocol = idx.useSsl ? 'https' : 'http';
+      const url = `${protocol}://${idx.hostname}:${idx.port}${baseUrlStr}`;
+
+      let searchResponse;
+      if (idx.type === 'jackett') {
+        const jackett = new JackettAPI({ url, apiKey: idx.apiKey });
+        searchResponse = await jackett.searchAll(query, categories);
+      } else {
+        const prowlarr = new ProwlarrAPI({ url, apiKey: idx.apiKey });
+        searchResponse = await prowlarr.searchAll(query, categories);
+      }
+
+      const items = searchResponse?.rss?.channel?.[0]?.item ?? [];
+      const parsed: ParsedIndexerResult[] = items.map((item) => {
+        const attrs = item['torznab:attr']?.[0]?.$ ??
+          item['newznab:attr']?.[0]?.$ ?? {};
+        const enclosure = item.enclosure?.[0]?.$;
+
+        return {
+          guid: item.guid?.[0] ?? '',
+          title: item.title?.[0] ?? '',
+          size: Number(attrs.size ?? item.size?.[0] ?? 0),
+          sizeLabel: IndexerBase.formatSize(
+            Number(attrs.size ?? item.size?.[0] ?? 0)
+          ),
+          link: item.link?.[0] ?? '',
+          pubDate: item.pubDate?.[0] ?? '',
+          category: item.category ?? [],
+          seeders: Number(attrs.seeders ?? 0),
+          leechers: Number(attrs.leechers ?? 0),
+          peers: Number(attrs.peers ?? 0),
+          grabs: Number(attrs.grabs ?? 0),
+          indexer: idx.name,
+          indexerId: String(idx.id),
+          downloadUrl: enclosure?.url ?? item.link?.[0] ?? '',
+        };
+      });
+
+      return res.status(200).json(parsed);
+    } catch (e) {
+      logger.error('Indexer search failed', {
+        label: 'Indexer',
+        error: e.message,
+        query,
+      });
+      next({ status: 500, message: 'Search failed' });
+    }
+  }
+);
+
+export default serviceRoutes;
+ENDOFFILE
+
